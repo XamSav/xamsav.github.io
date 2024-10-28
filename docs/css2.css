@@ -2,19 +2,77 @@
     margin: 0px;
     padding: 0px;
 }
-#root{
+body{
+    background-color: #1c1d25;
+    font-family: 'Trebuchet MS', sans-serif;
     width: 100%;
-    height: 100vh;
-    background-color: blueviolet;
-    padding: 10%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
-.name{
-    background-color: white;
-    width: 40%;
-    display: flex;
-    flex-wrap: nowrap;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    align-items: center;
-    border-radius: 10px;
-    padding: 20px
+
+.content{
+    margin: 0 auto;
+    width: 95%;
+}
+
+nav{
+    width: 100%;
+    background-color: rgb(53, 53, 53);
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    display: block;
+}
+.logo{
+    float: left;
+    padding:10px 0px;
+}
+.nav-links{
+    float: right;
+    position: relative;
+    top: 20px;
+    list-style-type: disc;
+}
+.nav-links li{
+    display: inline-block;
+    margin-left: 40px;
+}
+.nav-links li a{
+    display: block;
+    padding: 10px 0px;
+    /*font-family:'Courier New', Courier, monospace;*/
+    color:#b0b2c3;
+}
+a{
+    text-decoration: none;
+}
+
+
+header{
+    height: 100hv;
+}
+.main-text{
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    color: #fff;
+    transform: translateY(-50%);
+}
+.main-text .content{
+    padding-left: 60px;
+    width: 1170px;
+}
+.main-xam{
+    font-size: 4em;
+    margin-bottom: 0.09em;
+}
+.main-sub{
+    padding-top: 10px;
+    padding-right: 10px;
+    overflow: hidden;
+}
+.main-sub p{
+    font-weight: 400;
+    margin-bottom: 25px;
 }
