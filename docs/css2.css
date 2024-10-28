@@ -1,0 +1,20 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+#root{
+    width: 100%;
+    height: 100vh;
+    background-color: blueviolet;
+    padding: 10%;
+}
+.name{
+    background-color: white;
+    width: 40%;
+    display: flex;
+    flex-wrap: nowrap;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    align-items: center;
+    border-radius: 10px;
+    padding: 20px
+}
