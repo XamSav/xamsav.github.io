@@ -97,7 +97,8 @@ section{
   padding:10px;
   text-align: center;
   margin: auto;
-  background-color: white;
+  border: #b0b2c3 1px solid;
+  color: #fff;
 }
 .row{
   display: flex;

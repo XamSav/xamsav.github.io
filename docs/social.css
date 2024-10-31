@@ -2,7 +2,7 @@
 .social {
     position: absolute;
     bottom: 10%;
-    left: 45%;
+    margin:auto;
 }
 
 .social-login-icons {
