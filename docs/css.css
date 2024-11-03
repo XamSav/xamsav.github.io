@@ -29,7 +29,7 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 60px;
+    padding: 10px 60px;
     width: 1170px;
 }
 
@@ -111,4 +111,10 @@ section{
 }
 a{
     text-decoration: none;
+}
+footer{
+    color: #fff;
+    background-color: #1c1d25;
+    padding: 10px;
+    text-align: center;
 }
