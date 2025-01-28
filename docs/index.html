@@ -28,19 +28,22 @@
         }
     </script>
     <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-P8J7SDCR');</script>
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-P8J7SDCR');</script>
     <!-- End Google Tag Manager -->
-        
+
 </head>
 
 <body>
     <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P8J7SDCR"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P8J7SDCR" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
     <nav>
         <div class="content nav-container">
@@ -48,9 +51,8 @@
                 <img src="img/logo_blanco.PNG" alt="Logo" width="64">
             </div>
             <ul class="nav-links">
+                <li><a href="#abotme">Sobre Mi</a></li>
                 <li><a href="#portfolio">Portfolio</a></li>
-                <li><a href="#footer">Sobre Mi</a></li>
-                <li><a href="#">Contacto</a></li>
             </ul>
         </div>
     </nav>
@@ -132,12 +134,43 @@
             </div>
         </div>
     </header>
-    <section id="portfolio" class="games">
-        <h2>My Games</h2>
-        <div class="row">
-            <iframe class="card" frameborder="0" src="https://itch.io/embed/2873645?linkback=true" width="552" height="167"><a href="https://xamsav.itch.io/asteroids">Asteroids by XamSav</a></iframe>
-        </div>
+    <section id="abotme">
+        <h2>Hola, soy <span style="color:#fa5c5c">XamSav</span></h2>
+        <p>Soy programador de videojuegos con especialización en la creación de gameplay, apasionado por dar vida a
+            experiencias interactivas únicas.</p>
+        <p>Mi camino en la programación comenzó a los 18 años, siempre enfocado en el desarrollo de videojuegos y
+            explorando diversas tecnologías para mejorar mis habilidades.</p>
+        <p>A lo largo de mi carrera, he adquirido conocimientos en áreas clave como:</p>
+        <p>🎮 Unity Engine | 🌐 NodeJS, Laravel, .NET, QT | 📚 C#, C++, Java,
+            JavaScript, Swift, SQL</p>
     </section>
+    <section id="portfolio" class="games">
+        <h2>Mis Juegos</h2>
+        <div class="row">
+            <div id="asteroids" class="card">
+                <div class="game-description">
+                    <h2>Asteroids</h2><p>Un proyecto con el que aprendí los conceptos básicos de programación en Unity Engine, creando una experiencia simple pero divertida.</p>
+                </div>
+                <div class="game-iframe">
+                    <iframe frameborder="0" src="https://itch.io/embed/2873645?linkback=true" width="552" height="167">
+                        <a href="https://xamsav.itch.io/asteroids">Asteroids by XamSav</a>
+                    </iframe>
+                </div>
+            </div>
+            <div id="Undead Survivor" class="card">
+                <div class="game-description">
+                    <h2>Undead Survivor</h2><p>Un proyecto donde he practicado conceptos mas avanzados de la programacion, como el manejo de una piscina de objetos.</p>
+
+                </div>
+            </div>
+            <div id="proximamente" class="card">
+                <div class="game-description">
+                    <h2>Próximamente</h2><p>Estoy trabajando en nuevos proyectos que pronto estarán disponibles en mi perfil de Itch.io.</p>
+                </div>
+                
+            </div>
+    </section>
+    
     <footer>
         XamSav - Samuel Viguera Pulgar
     </footer>

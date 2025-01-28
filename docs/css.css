@@ -1,120 +1,141 @@
 body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    background-color: #1c1d25;
-    font-family: 'Trebuchet MS', sans-serif;
-}
-
-.content {
-    margin: 0 auto;
-    width: 95%;
-}
-
-nav {
-    width: 100%;
-    background-color: #1c1d25;
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    z-index: 1;
-}
-
-.nav-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 60px;
-    width: 1170px;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-}
-
-.nav-links {
-    display: flex;
-    gap: 40px;
-    list-style-type: none;
-}
-
-.nav-links li a {
-    color: #b0b2c3;
-    padding: 10px 0;
-}
-
-header {
-    position: relative;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.main-text {
-    width: 100%;
-    color: #fff;
-    transform: translateY(-50%);
-}
-
-.main-text .content {
-    padding-left: 60px;
-    width: 1170px;
-}
-
-.main-xam {
-    font-size: 4em;
-    margin-bottom: 0.09em;
-}
-
-.main-sub p {
-    font-weight: 400;
-    margin-bottom: 25px;
-}
-
-.logo-bck {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.logo-bck svg {
-    width: 100%;
-}
-section{
-    width: 100%;
-}
-/*---GAMES---*/
-.games{
-  width: 95%;
-  padding:10px;
-  text-align: center;
-  margin: auto;
-  border: #b0b2c3 1px solid;
-  color: #fff;
-}
-.row{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-}
-.card{
-  margin:10px;
-}
-a{
-    text-decoration: none;
-}
-footer{
-    color: #fff;
-    background-color: #1c1d25;
-    padding: 10px;
-    text-align: center;
-}
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    color:#fff;
+    background-color:#1c1d25;
+    font-family:'Trebuchet MS',sans-serif
+    }
+    
+    .content {
+    margin:0 auto;
+    width:95%
+    }
+    
+    nav {
+    width:100%;
+    background-color:#1c1d25;
+    position:fixed;
+    top:0;
+    left:0;
+    display:flex;
+    justify-content:center;
+    z-index:1
+    }
+    
+    .nav-container {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px 60px;
+    width:1170px
+    }
+    
+    .logo {
+    display:flex;
+    align-items:center
+    }
+    
+    .nav-links {
+    display:flex;
+    gap:40px;
+    list-style-type:none
+    }
+    
+    .nav-links li a {
+    color:#b0b2c3;
+    padding:10px 0
+    }
+    
+    header {
+    position:relative;
+    height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center
+    }
+    
+    .main-text {
+    width:100%;
+    transform:translateY(-50%)
+    }
+    
+    .main-text .content {
+    padding-left:60px;
+    width:1170px
+    }
+    
+    .main-xam {
+    font-size:4em;
+    margin-bottom:.09em
+    }
+    
+    .main-sub p {
+    font-weight:400;
+    margin-bottom:25px
+    }
+    
+    .logo-bck {
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%)
+    }
+    
+    .logo-bck svg {
+    width:100%
+    }
+    
+    section {
+    width:95%;
+    padding:10px;
+    text-align:center;
+    margin:auto
+    }
+    
+    a {
+    text-decoration:none
+    }
+    
+    #portfolio {
+    padding:2rem;
+    background-color:#191b22
+    }
+    
+    .games {
+    border:#b0b2c3 1px solid
+    }
+    
+    .row {
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    gap:.2em
+    }
+    
+    .card {
+    background:#1c1d25;
+    border:1px solid #ddd;
+    border-radius:8px;
+    overflow:hidden;
+    padding:1rem;
+    box-shadow:0 4px 8px #0000001a;
+    width:100%;
+    max-width:600px;
+    text-align:center
+    }
+    
+    .game-description {
+    margin-bottom:1rem
+    }
+    
+    .game-iframe iframe {
+    border-radius:8px
+    }
+    
+    footer {
+    color:#fff;
+    background-color:#1c1d25;
+    padding:10px;
+    text-align:center
+    }
