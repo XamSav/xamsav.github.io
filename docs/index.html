@@ -4,61 +4,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="XamSav Portfolio. Video game programmer with Unity Engine.">
-    <meta name="keywords" content="XamSav, projects, portfolio, contact, unity engine developer.">
-    <meta name="author" content="XamSav">
+
+    <title>XamSav | Videogame Programmer</title>
+
+    <!-- SEO -->
+    <meta name="description" content="XamSav Portfolio. Videogame programmer specialized in Unity Engine and gameplay systems.">
+    <meta name="keywords" content="XamSav, videogame programmer, Unity, portfolio, game developer">
+    <meta name="author" content="Samuel Viguera Pulgar">
+
+    <!-- Styles -->
     <link rel="stylesheet" href="css.css">
     <link rel="stylesheet" href="social.css">
-    <title>XamSav</title>
+
+    <!-- Favicon -->
     <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
 
+    <!-- Structured Data -->
     <script type="application/ld+json">
-        {
-          "@context": "https://schema.org",
-          "@type": "Person",
-          "name": "Samuel Viguera Pulgar",
-          "url": "https://www.xamsav.es",
-          "logo": "https://www.xamsav.es/img/logo_name.png",
-          "image": "https://www.xamsav.es/img/logo.png",
-          "jobTitle": "Videogame Programmer",
-          "sameAs": [
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Samuel Viguera Pulgar",
+        "url": "https://www.xamsav.es",
+        "image": "https://www.xamsav.es/img/logo.png",
+        "jobTitle": "Videogame Programmer",
+        "sameAs": [
             "https://x.com/XamSav",
             "https://github.com/XamSav"
-          ]
-        }
+        ]
+    }
     </script>
-    <!-- Google Tag Manager -->
-    <script>(function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                    new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-P8J7SDCR');</script>
-    <!-- End Google Tag Manager -->
 
+    <!-- Google Tag Manager -->
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-P8J7SDCR');
+    </script>
 </head>
 
 <body>
+
     <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P8J7SDCR" height="0" width="0"
-            style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P8J7SDCR"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+
+    <!-- Navigation -->
     <nav>
         <div class="content nav-container">
             <div class="logo">
-                <img src="img/logo_blanco.PNG" alt="Logo" width="64">
+                <img src="img/logo_blanco.PNG" alt="XamSav logo" width="64">
             </div>
+
             <ul class="nav-links">
-                <li><a href="#abotme">Sobre Mi</a></li>
+                <li><a href="#aboutme">Sobre mí</a></li>
                 <li><a href="#portfolio">Portfolio</a></li>
-                <!--<li><a href="https://discord.com/oauth2/authorize?client_id=1303364122146246656&permissions=2150640704&integration_type=0&scope=bot+applications.commands">Bot Discord</a></li> -->
             </ul>
         </div>
     </nav>
-    <header id="top" class="main-header">
-        <div class="logo-bck">
+
+    <!-- Header / Hero -->
+    <header class="main-header" id="top">
+        <div class="logo-bck" aria-hidden="true">
             <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="370.000000pt" height="315.000000pt"
                 viewBox="0 0 370.000000 315.000000" preserveAspectRatio="xMidYMid meet">
 
@@ -80,17 +96,15 @@
                 </g>
             </svg>
         </div>
+
         <div class="main-text">
             <div class="content">
                 <h1 class="main-xam">XamSav</h1>
-                <div class="main-sub">
-                    <p>Software Developer - Videogame Programmer </p>
-                </div>
-            </div>
-            <div class="boton">
-                <div></div>
+                <h2 class="main-sub">Software Developer & Videogame Programmer</h2>
             </div>
         </div>
+
+        <!-- Social Links -->
         <div class="social">
             <div class="social-login-icons">
                 <div class="socialcontainer">
@@ -135,43 +149,95 @@
             </div>
         </div>
     </header>
-    <section id="abotme">
-        <h2>Hola, soy <span style="color:#fa5c5c">XamSav</span></h2>
-        <p>Soy programador de videojuegos con especialización en la creación de gameplay, apasionado por dar vida a
-            experiencias interactivas únicas.</p>
-        <p>Mi camino en la programación comenzó a los 18 años, siempre enfocado en el desarrollo de videojuegos y
-            explorando diversas tecnologías para mejorar mis habilidades.</p>
-        <p>A lo largo de mi carrera, he adquirido conocimientos en áreas clave como:</p>
-        <p>🎮 Unity Engine | 🌐 NodeJS, Laravel, .NET, QT | 📚 C#, C++, Java,
-            JavaScript, Swift, SQL</p>
-    </section>
-    <section id="portfolio" class="games">
-        <h2>Portfolio - Juegos</h2>
-        <div class="row">
-            <div id="asteroids" class="card">
-                <div class="game-description">
-                    <h2>Asteroids</h2><p>Un proyecto con el que aprendí los conceptos básicos de programación en Unity Engine, creando una experiencia simple pero divertida.</p>
-                </div>
-                <div class="game-iframe">
-                    <iframe frameborder="0" src="https://itch.io/embed/2873645?linkback=true" width="552" height="167">
-                        <a href="https://xamsav.itch.io/asteroids">Asteroids by XamSav</a>
-                    </iframe>
-                </div>
-            </div>
-            <div id="NanoCore: Defense Protocol" class="card">
-                <div class="game-description">
-                    <h2>NanoCore: Defense Protocol</h2><p>Juego presentado en la Game Jam de GameDev, donde forme parte de la responsabilidad de la programacion de Enemigos, Generacion, Sistema de Opciones entre otros.</p>
-                </div>
-                <div class="game-iframe">
-                    <iframe frameborder="0" src="https://itch.io/embed/3575381" width="552" height="167"><a href="https://xamsav.itch.io/nanocore-defense-protocol">NanoCore: Defense Protocol by XamSav, Cyn, Flare The Lazy, REAP3R, Nate Sassoon, MUGWANEZA MANZI Audace</a></iframe>
-                </div>
-            </div>
-            
-    </section>
-    
-    <footer>
-        XamSav - Samuel Viguera Pulgar
-    </footer>
-</body>
 
+    <!-- Main Content -->
+    <main>
+
+        <!-- About Me -->
+        <section id="aboutme">
+            <h2>Hola, soy <span style="color:#fa5c5c">XamSav</span></h2>
+
+            <p>
+                Soy programador de videojuegos especializado en gameplay y sistemas interactivos,
+                apasionado por crear experiencias sólidas y divertidas.
+            </p>
+
+            <p>
+                Empecé en la programación a los 18 años, siempre enfocado en el desarrollo de videojuegos
+                y en aprender nuevas tecnologías para mejorar como desarrollador.
+            </p>
+
+            <p><strong>Tecnologías:</strong></p>
+            <p>
+                🎮 Unity Engine <br>
+                🌐 Node.js, Laravel, .NET, Qt <br>
+                📚 C#, C++, Java, JavaScript, Swift, SQL
+            </p>
+        </section>
+
+        <!-- Portfolio -->
+        <section id="portfolio" class="games">
+            <h2>Portfolio – Juegos</h2>
+
+            <div class="row">
+
+                <!-- Game 1 -->
+                <article class="card" id="asteroids">
+                    <div class="game-description">
+                        <h3>Asteroids</h3>
+                        <p>
+                            Proyecto con el que aprendí los conceptos básicos de programación en Unity,
+                            recreando una experiencia arcade clásica.
+                        </p>
+                    </div>
+
+                    <div class="game-iframe">
+                        <iframe
+                            src="https://itch.io/embed/2873645?linkback=true"
+                            width="552"
+                            height="167"
+                            loading="lazy"
+                            frameborder="0">
+                            <a href="https://xamsav.itch.io/asteroids">
+                                Asteroids by XamSav
+                            </a>
+                        </iframe>
+                    </div>
+                </article>
+
+                <!-- Game 2 -->
+                <article class="card" id="nanocore-defense-protocol">
+                    <div class="game-description">
+                        <h3>NanoCore: Defense Protocol</h3>
+                        <p>
+                            Juego desarrollado durante una Game Jam, participando en la programación
+                            de enemigos, generación procedural y sistema de opciones.
+                        </p>
+                    </div>
+
+                    <div class="game-iframe">
+                        <iframe
+                            src="https://itch.io/embed/3575381"
+                            width="552"
+                            height="167"
+                            loading="lazy"
+                            frameborder="0">
+                            <a href="https://xamsav.itch.io/nanocore-defense-protocol">
+                                NanoCore: Defense Protocol
+                            </a>
+                        </iframe>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>XamSav – Samuel Viguera Pulgar</p>
+    </footer>
+
+</body>
 </html>
