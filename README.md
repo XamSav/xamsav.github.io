@@ -13,7 +13,7 @@ La web es HTML/CSS/JS estático servido por GitHub Pages desde la carpeta `docs/
 | `docs/privacidad.html` | Política de privacidad y cookies |
 | `docs/404.html` | Página de error |
 | `docs/styles.css` | Estilos |
-| `docs/main.js` | Menú móvil, animaciones y consentimiento de cookies (Google Tag Manager solo se carga tras aceptar) |
+| `docs/main.js` | Menú móvil, animaciones y consentimiento de cookies (Google Analytics 4 `G-514WEWFRSR` solo se carga tras aceptar) y evento `generate_lead` al pulsar el correo |
 
 ## Vista previa local
 

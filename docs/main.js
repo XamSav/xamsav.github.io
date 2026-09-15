@@ -1,7 +1,7 @@
 (function () {
     "use strict";
 
-    var GTM_ID = "GTM-P8J7SDCR";
+    var GA_ID = "G-514WEWFRSR";
     var CONSENT_KEY = "xamsav-consent";
 
     document.documentElement.classList.add("js");
@@ -56,7 +56,7 @@
         el.textContent = new Date().getFullYear();
     });
 
-    // ---------- Consentimiento de cookies (GTM solo tras aceptar) ----------
+    // ---------- Consentimiento de cookies (Google Analytics solo tras aceptar) ----------
     function readConsent() {
         try { return localStorage.getItem(CONSENT_KEY); } catch (e) { return null; }
     }
@@ -65,16 +65,38 @@
         try { localStorage.setItem(CONSENT_KEY, value); } catch (e) { /* sin almacenamiento */ }
     }
 
-    var gtmLoaded = false;
-    function loadGtm() {
-        if (gtmLoaded) return;
-        gtmLoaded = true;
+    var analyticsLoaded = false;
+    function loadAnalytics() {
+        if (analyticsLoaded) return;
+        analyticsLoaded = true;
         window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        window.gtag = function () { window.dataLayer.push(arguments); };
+        window.gtag("consent", "default", {
+            analytics_storage: "granted",
+            ad_storage: "denied",
+            ad_user_data: "denied",
+            ad_personalization: "denied"
+        });
+        window.gtag("js", new Date());
+        window.gtag("config", GA_ID);
         var s = document.createElement("script");
         s.async = true;
-        s.src = "https://www.googletagmanager.com/gtm.js?id=" + GTM_ID;
+        s.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_ID;
         document.head.appendChild(s);
+    }
+
+    // Borra las cookies _ga y _ga_* al retirar el consentimiento.
+    function clearAnalyticsCookies() {
+        var host = window.location.hostname;
+        var domains = ["", host, "." + host, "." + host.replace(/^www\./, "")];
+        document.cookie.split(";").forEach(function (cookie) {
+            var name = cookie.split("=")[0].trim();
+            if (name === "_ga" || name.indexOf("_ga_") === 0) {
+                domains.forEach(function (domain) {
+                    document.cookie = name + "=; Max-Age=0; path=/" + (domain ? "; domain=" + domain : "");
+                });
+            }
+        });
     }
 
     var banner = document.getElementById("consent");
@@ -98,16 +120,28 @@
         writeConsent(choice);
         hideBanner();
         if (choice === "granted") {
-            loadGtm();
-        } else if (gtmLoaded) {
-            // Si se retira el consentimiento, recargar para descargar el script.
-            window.location.reload();
+            loadAnalytics();
+        } else {
+            clearAnalyticsCookies();
+            // Si ya estaba cargado, recargar para descargar el script.
+            if (analyticsLoaded) window.location.reload();
         }
+    });
+
+    // ---------- Evento de cliente potencial: clic en el correo de contacto ----------
+    document.addEventListener("click", function (e) {
+        var link = e.target.closest('a[href^="mailto:"]');
+        if (!link || !analyticsLoaded) return;
+        var section = link.closest("section[id], footer");
+        window.gtag("event", "generate_lead", {
+            method: "email",
+            link_location: section ? (section.id || "footer") : "page"
+        });
     });
 
     var consent = readConsent();
     if (consent === "granted") {
-        loadGtm();
+        loadAnalytics();
     } else if (consent !== "denied") {
         showBanner();
     }
