@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://xamsav.es/sitemap.xml

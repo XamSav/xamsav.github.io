@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacidad y cookies · XamSav</title>
+    <meta name="robots" content="noindex, follow">
+    <link rel="canonical" href="https://xamsav.es/privacidad.html">
+    <link rel="icon" href="favicon.ico" sizes="48x48">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+    <link rel="stylesheet" href="styles.css">
+    <script src="main.js" defer></script>
+</head>
+
+<body>
+    <header class="site-header">
+        <nav class="container nav" aria-label="Principal">
+            <a class="brand" href="./">
+                <img src="img/logo_blanco.PNG" alt="" width="34" height="34">
+                XamSav
+            </a>
+            <a class="btn btn-ghost btn-sm" href="./">Volver a la web</a>
+        </nav>
+    </header>
+
+    <main class="page">
+        <div class="container prose">
+            <h1>Privacidad y cookies</h1>
+            <p class="updated">Última actualización: <span class="todo">[fecha]</span></p>
+
+            <h2>1. Responsable del tratamiento</h2>
+            <ul>
+                <li><strong>Responsable:</strong> <span class="todo">[XamSav S.L. — razón social exacta]</span></li>
+                <li><strong>NIF:</strong> <span class="todo">[NIF]</span></li>
+                <li><strong>Domicilio:</strong> <span class="todo">[dirección]</span>, Vic (Barcelona), España</li>
+                <li><strong>Contacto:</strong> <a href="mailto:hola@xamsav.es">hola@xamsav.es</a></li>
+            </ul>
+
+            <h2>2. Qué datos tratamos y para qué</h2>
+            <p>Esta web no tiene formularios ni áreas de registro. Solo tratamos datos personales en estos casos:</p>
+            <ul>
+                <li><strong>Correos que nos envías:</strong> nombre, dirección de correo y la información que incluyas, para responder a tu consulta y, en su caso, preparar un presupuesto. Base jurídica: tu consentimiento y la aplicación de medidas precontractuales (art. 6.1.a y 6.1.b RGPD).</li>
+                <li><strong>Analítica web:</strong> datos de navegación anonimizados o seudonimizados, solo si aceptas las cookies de analítica. Base jurídica: tu consentimiento (art. 6.1.a RGPD).</li>
+            </ul>
+
+            <h2>3. Conservación</h2>
+            <p>Los correos se conservan mientras dure la relación comercial o hasta que solicites su supresión, y posteriormente durante los plazos legales aplicables. Los datos de analítica se conservan según los plazos indicados en la tabla de cookies.</p>
+
+            <h2>4. Destinatarios</h2>
+            <p>No cedemos datos a terceros salvo obligación legal. Utilizamos proveedores que pueden tratar datos por cuenta nuestra: GitHub (alojamiento de la web) y Google (analítica, solo con consentimiento). Estos proveedores pueden realizar transferencias internacionales amparadas en el Marco de Privacidad de Datos UE-EE. UU. o en cláusulas contractuales tipo.</p>
+
+            <h2>5. Tus derechos</h2>
+            <p>Puedes ejercer tus derechos de acceso, rectificación, supresión, oposición, limitación del tratamiento y portabilidad escribiendo a <a href="mailto:hola@xamsav.es">hola@xamsav.es</a>. Si consideras que no hemos atendido correctamente tu solicitud, puedes presentar una reclamación ante la <a href="https://www.aepd.es" rel="noopener" target="_blank">Agencia Española de Protección de Datos</a>.</p>
+
+            <h2 id="cookies">6. Cookies</h2>
+            <p>Una cookie es un pequeño archivo que el navegador guarda al visitar una web. Esta web solo instala cookies de analítica si las aceptas en el banner. Tu elección se guarda en el almacenamiento local del navegador (no es una cookie) para no volver a preguntarte.</p>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cookie</th>
+                            <th>Proveedor</th>
+                            <th>Finalidad</th>
+                            <th>Duración</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>_ga</code></td>
+                            <td>Google</td>
+                            <td>Analítica: distingue usuarios de forma anónima.</td>
+                            <td>2 años</td>
+                        </tr>
+                        <tr>
+                            <td><code>_ga_*</code></td>
+                            <td>Google</td>
+                            <td>Analítica: mantiene el estado de la sesión.</td>
+                            <td>2 años</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p><span class="todo">[Revisar la tabla según las etiquetas configuradas realmente en Google Tag Manager]</span></p>
+
+            <p>Los juegos incrustados desde itch.io pueden instalar sus propias cookies; consulta la política de privacidad de itch.io.</p>
+
+            <p>Puedes cambiar tu elección en cualquier momento:</p>
+            <p><button class="btn btn-ghost btn-sm" type="button" data-consent="settings">Configurar cookies</button></p>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <p style="margin:0">© <span data-year>2026</span> XamSav · Vic, Catalunya</p>
+            <ul class="footer-links">
+                <li><a href="aviso-legal.html">Aviso legal</a></li>
+                <li><a href="privacidad.html">Privacidad y cookies</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <div class="consent" id="consent" role="dialog" aria-live="polite" aria-label="Preferencias de cookies" hidden>
+        <p>Usamos cookies de analítica (Google Tag Manager) solo si las aceptas. Más información en <a href="privacidad.html#cookies">nuestra política de cookies</a>.</p>
+        <div class="consent-actions">
+            <button class="btn btn-primary btn-sm" type="button" data-consent="granted">Aceptar</button>
+            <button class="btn btn-ghost btn-sm" type="button" data-consent="denied">Rechazar</button>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,243 +1,620 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es-ES">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>XamSav | Videogame Programmer</title>
+    <title>Desarrollo de videojuegos Unity en Vic (Barcelona) | XamSav</title>
 
     <!-- SEO -->
-    <meta name="description" content="XamSav Portfolio. Videogame programmer specialized in Unity Engine and gameplay systems.">
-    <meta name="keywords" content="XamSav, videogame programmer, Unity, portfolio, game developer">
-    <meta name="author" content="Samuel Viguera Pulgar">
+    <meta name="description" content="Estudio de desarrollo de videojuegos en Vic (Barcelona). Programación Unity para Android y Windows, backend para juegos, optimización, QA y bug fixing.">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+    <link rel="canonical" href="https://xamsav.es/">
+    <meta name="theme-color" content="#121319">
+    <meta name="geo.region" content="ES-CT">
+    <meta name="geo.placename" content="Vic">
 
-    <!-- Styles -->
-    <link rel="stylesheet" href="css.css">
-    <link rel="stylesheet" href="social.css">
+    <!-- Open Graph / redes -->
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:site_name" content="XamSav">
+    <meta property="og:title" content="XamSav · Desarrollo de videojuegos y programación Unity">
+    <meta property="og:description" content="Estudio de videojuegos en Vic (Barcelona): desarrollo Unity, backend para juegos, optimización y QA. Vuestro equipo técnico externo.">
+    <meta property="og:url" content="https://xamsav.es/">
+    <meta property="og:image" content="https://xamsav.es/img/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="XamSav, estudio de desarrollo de videojuegos con Unity en Vic, Barcelona">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@XamSav">
+    <meta name="twitter:title" content="XamSav · Desarrollo de videojuegos y programación Unity">
+    <meta name="twitter:description" content="Desarrollo Unity, backend para juegos, optimización y QA desde Vic (Barcelona).">
+    <meta name="twitter:image" content="https://xamsav.es/img/og-image.png">
 
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+    <!-- Iconos -->
+    <link rel="icon" href="favicon.ico" sizes="48x48">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="img/icon-192.png" sizes="192x192" type="image/png">
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
 
-    <!-- Structured Data -->
+    <link rel="stylesheet" href="styles.css">
+    <script src="main.js" defer></script>
+
+    <!-- Datos estructurados -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Samuel Viguera Pulgar",
-        "url": "https://www.xamsav.es",
-        "image": "https://www.xamsav.es/img/logo.png",
-        "jobTitle": "Videogame Programmer",
-        "sameAs": [
-            "https://x.com/XamSav",
-            "https://github.com/XamSav"
+        "@graph": [
+            {
+                "@type": "ProfessionalService",
+                "@id": "https://xamsav.es/#organization",
+                "name": "XamSav",
+                "url": "https://xamsav.es/",
+                "description": "Estudio de desarrollo de videojuegos y servicios tecnológicos para videojuegos: programación Unity, backend, optimización, QA y corrección de bugs.",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://xamsav.es/img/icon-512.png",
+                    "width": 512,
+                    "height": 512
+                },
+                "image": "https://xamsav.es/img/og-image.png",
+                "email": "hola@xamsav.es",
+                "address": {
+                    "@type": "PostalAddress",
+                    "addressLocality": "Vic",
+                    "postalCode": "08500",
+                    "addressRegion": "Barcelona",
+                    "addressCountry": "ES"
+                },
+                "areaServed": [
+                    { "@type": "City", "name": "Vic" },
+                    { "@type": "AdministrativeArea", "name": "Osona" },
+                    { "@type": "City", "name": "Barcelona" },
+                    { "@type": "AdministrativeArea", "name": "Catalunya" },
+                    { "@type": "Country", "name": "España" },
+                    { "@type": "Place", "name": "Europa" }
+                ],
+                "knowsAbout": [
+                    "Desarrollo de videojuegos",
+                    "Unity",
+                    "C#",
+                    "Backend para videojuegos",
+                    "Optimización de videojuegos",
+                    "QA y testing de videojuegos",
+                    "Desarrollo de juegos para Android",
+                    "Desarrollo de juegos para Windows"
+                ],
+                "sameAs": [
+                    "https://x.com/XamSav",
+                    "https://github.com/XamSav",
+                    "https://xamsav.itch.io"
+                ],
+                "hasOfferCatalog": {
+                    "@type": "OfferCatalog",
+                    "name": "Servicios de desarrollo de videojuegos",
+                    "itemListElement": [
+                        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Desarrollo de videojuegos en Unity", "description": "Juegos y prototipos en Unity para Android y Windows: gameplay, UI, sistemas y builds listas para publicar." } },
+                        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Backend para videojuegos", "description": "APIs, bases de datos y sistemas online: autenticación, jugadores, inventario, estadísticas y guardado en la nube." } },
+                        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Optimización de juegos Unity", "description": "Profiling de CPU, GPU y memoria, tiempos de carga y rendimiento en móvil con métricas de antes y después." } },
+                        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "QA y testing de videojuegos", "description": "Planes de prueba, pruebas de regresión y reportes de errores reproducibles." } },
+                        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Corrección de bugs en proyectos Unity", "description": "Corrección de errores y resolución de bloqueos técnicos en proyectos existentes." } },
+                        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mantenimiento de videojuegos", "description": "Actualizaciones de Unity y SDKs, soporte post-lanzamiento y mejoras continuas." } }
+                    ]
+                }
+            },
+            {
+                "@type": "WebSite",
+                "@id": "https://xamsav.es/#website",
+                "url": "https://xamsav.es/",
+                "name": "XamSav",
+                "inLanguage": "es-ES",
+                "publisher": { "@id": "https://xamsav.es/#organization" }
+            },
+            {
+                "@type": "WebPage",
+                "@id": "https://xamsav.es/#webpage",
+                "url": "https://xamsav.es/",
+                "name": "Desarrollo de videojuegos Unity en Vic (Barcelona) | XamSav",
+                "inLanguage": "es-ES",
+                "isPartOf": { "@id": "https://xamsav.es/#website" },
+                "about": { "@id": "https://xamsav.es/#organization" },
+                "primaryImageOfPage": { "@type": "ImageObject", "url": "https://xamsav.es/img/og-image.png" }
+            },
+            {
+                "@type": "VideoGame",
+                "name": "NanoCore: Defense Protocol",
+                "url": "https://xamsav.itch.io/nanocore-defense-protocol",
+                "genre": ["Action", "Tower Defense"],
+                "gamePlatform": "Web browser",
+                "applicationCategory": "Game",
+                "contributor": { "@id": "https://xamsav.es/#organization" }
+            },
+            {
+                "@type": "VideoGame",
+                "name": "Asteroids",
+                "url": "https://xamsav.itch.io/asteroids",
+                "genre": ["Action", "Retro"],
+                "gamePlatform": "Web browser",
+                "applicationCategory": "Game",
+                "author": { "@id": "https://xamsav.es/#organization" }
+            },
+            {
+                "@type": "FAQPage",
+                "@id": "https://xamsav.es/#faq",
+                "mainEntity": [
+                    {
+                        "@type": "Question",
+                        "name": "¿Qué servicios de desarrollo de videojuegos ofrece XamSav?",
+                        "acceptedAnswer": { "@type": "Answer", "text": "Desarrollo de videojuegos con Unity para Android y Windows, backend para juegos (APIs, bases de datos y sistemas online), optimización de rendimiento, QA y testing, corrección de bugs y mantenimiento de proyectos publicados." }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "¿Trabajáis con estudios y empresas de fuera de Vic?",
+                        "acceptedAnswer": { "@type": "Answer", "text": "Sí. Estamos en Vic (Osona), a una hora de Barcelona, y trabajamos en remoto con estudios y empresas de toda España y Europa." }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "¿Podéis trabajar en un proyecto Unity que ya está empezado?",
+                        "acceptedAnswer": { "@type": "Answer", "text": "Sí. Revisamos el código y el estado del proyecto, detectamos los problemas y corregimos errores o completamos funcionalidades sin necesidad de rehacerlo desde cero." }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "¿Cómo optimizáis un juego hecho en Unity?",
+                        "acceptedAnswer": { "@type": "Answer", "text": "Primero medimos con herramientas como Unity Profiler y Frame Debugger para encontrar los cuellos de botella de CPU, GPU, memoria o tiempos de carga. Después aplicamos los cambios y entregamos métricas de antes y después." }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "¿Quién se queda con la propiedad intelectual del trabajo?",
+                        "acceptedAnswer": { "@type": "Answer", "text": "Lo dejamos definido por contrato antes de empezar: qué recibe el cliente y qué herramientas reutilizables siguen siendo de XamSav." }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "¿Cuánto cuesta contratar a XamSav?",
+                        "acceptedAnswer": { "@type": "Answer", "text": "Depende del alcance del trabajo. Cuéntanos qué necesitas en hola@xamsav.es y te preparamos un presupuesto sin compromiso." }
+                    }
+                ]
+            }
         ]
     }
-    </script>
-
-    <!-- Google Tag Manager -->
-    <script>
-        (function (w, d, s, l, i) {
-            w[l] = w[l] || [];
-            w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-            var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s),
-                dl = l != 'dataLayer' ? '&l=' + l : '';
-            j.async = true;
-            j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-            f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-P8J7SDCR');
     </script>
 </head>
 
 <body>
+    <!-- Logo reutilizable -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <symbol id="logo" viewBox="0 0 370 315">
+            <g transform="translate(0,315) scale(0.1,-0.1)" fill="currentColor">
+                <path d="M1575 2698 c-138 -237 -251 -437 -253 -444 -2 -7 115 -213 259 -458 l263 -446 61 0 c33 0 84 -3 113 -6 33 -5 52 -3 52 4 0 5 -104 203 -231 439 -128 235 -236 437 -241 449 -8 17 21 71 172 323 101 167 184 311 187 320 4 14 -75 165 -121 233 -10 14 -52 -54 -261 -414z" />
+                <path d="M1867 2515 l-158 -265 252 -467 c138 -258 263 -487 276 -511 l25 -43 -198 7 c-110 4 -219 10 -243 13 l-44 6 -254 430 c-139 237 -257 436 -262 443 -5 10 -32 -27 -85 -118 l-77 -131 96 -129 96 -129 -117 -213 c-65 -117 -195 -352 -289 -523 l-170 -310 -188 -5 -188 -5 -54 -94 c-30 -51 -55 -95 -55 -97 0 -2 138 -3 307 -2 l307 3 262 440 c145 242 273 457 287 478 l24 38 132 -191 c77 -109 131 -197 127 -205 -3 -8 -125 -216 -272 -462 -147 -246 -269 -451 -271 -455 -2 -5 65 -8 150 -8 l155 0 75 155 76 155 584 0 585 0 106 -144 c58 -79 112 -149 120 -155 9 -8 50 -11 120 -9 l106 3 -173 272 -172 273 -578 0 -579 0 29 48 c15 27 80 132 143 235 l115 186 518 1 c285 0 517 4 515 8 -1 4 -28 52 -58 106 l-55 98 -191 -6 -190 -6 -297 526 -296 525 99 144 c55 78 100 146 100 151 0 7 -109 204 -113 204 -1 0 -73 -120 -160 -265z" />
+                <path d="M2136 2376 c-36 -52 -66 -98 -66 -101 0 -5 480 -861 514 -917 9 -16 27 -18 133 -18 67 0 124 3 126 8 4 5 -621 1103 -637 1119 -2 2 -34 -39 -70 -91z" />
+                <path d="M725 1233 c-170 -295 -312 -540 -313 -545 -2 -5 50 -7 119 -6 l123 3 249 450 c137 248 251 457 254 467 5 15 -101 168 -116 168 -3 -1 -145 -242 -316 -537z" />
+                <path d="M1385 1077 c-17 -30 -131 -223 -255 -430 l-225 -376 -370 -3 -370 -3 -72 -125 -73 -125 482 -3 c266 -1 488 0 495 2 6 3 136 212 287 466 l276 461 -67 95 c-36 51 -69 94 -72 94 -4 0 -20 -24 -36 -53z" />
+                <path d="M2037 893 c-13 -21 -49 -79 -80 -129 -31 -50 -57 -94 -57 -98 0 -3 231 -6 513 -6 l513 0 205 -322 204 -323 138 -3 c106 -2 137 0 137 10 -1 7 -117 213 -258 458 l-257 445 -517 3 -518 2 -23 -37z" />
+                <path d="M1610 120 c-27 -55 -50 -102 -50 -105 0 -3 290 -5 645 -5 355 0 645 2 645 5 0 3 -34 51 -75 105 l-76 100 -519 0 -520 0 -50 -100z" />
+            </g>
+        </symbol>
+    </svg>
 
-    <!-- Google Tag Manager (noscript) -->
-    <noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P8J7SDCR"
-            height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
+    <a class="skip-link" href="#main">Saltar al contenido</a>
 
-    <!-- Navigation -->
-    <nav>
-        <div class="content nav-container">
-            <div class="logo">
-                <img src="img/logo_blanco.PNG" alt="XamSav logo" width="64">
-            </div>
+    <!-- Navegación -->
+    <header class="site-header">
+        <nav class="container nav" aria-label="Principal">
+            <a class="brand" href="#top" aria-label="XamSav, inicio">
+                <svg aria-hidden="true"><use href="#logo" /></svg>
+                XamSav
+            </a>
 
-            <ul class="nav-links">
-                <li><a href="#aboutme">Sobre mí</a></li>
+            <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Abrir menú">
+                <span></span>
+            </button>
+
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#servicios">Servicios</a></li>
                 <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#proceso">Cómo trabajamos</a></li>
+                <li><a href="#estudio">Estudio</a></li>
+                <li><a href="#preguntas">FAQ</a></li>
+                <li><a class="btn btn-primary btn-sm" href="#contacto">Hablemos</a></li>
             </ul>
-        </div>
-    </nav>
-
-    <!-- Header / Hero -->
-    <header class="main-header" id="top">
-        <div class="logo-bck" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" version="1.0" width="370.000000pt" height="315.000000pt"
-                viewBox="0 0 370.000000 315.000000" preserveAspectRatio="xMidYMid meet">
-
-                <g transform="translate(0.000000,315.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
-                    <path
-                        d="M1575 2698 c-138 -237 -251 -437 -253 -444 -2 -7 115 -213 259 -458 l263 -446 61 0 c33 0 84 -3 113 -6 33 -5 52 -3 52 4 0 5 -104 203 -231 439 -128 235 -236 437 -241 449 -8 17 21 71 172 323 101 167 184 311 187 320 4 14 -75 165 -121 233 -10 14 -52 -54 -261 -414z" />
-                    <path
-                        d="M1867 2515 l-158 -265 252 -467 c138 -258 263 -487 276 -511 l25 -43 -198 7 c-110 4 -219 10 -243 13 l-44 6 -254 430 c-139 237 -257 436 -262 443 -5 10 -32 -27 -85 -118 l-77 -131 96 -129 96 -129 -117 -213 c-65 -117 -195 -352 -289 -523 l-170 -310 -188 -5 -188 -5 -54 -94 c-30 -51 -55 -95 -55 -97 0 -2 138 -3 307 -2 l307 3 262 440 c145 242 273 457 287 478 l24 38 132 -191 c77 -109 131 -197 127 -205 -3 -8 -125 -216 -272 -462 -147 -246 -269 -451 -271 -455 -2 -5 65 -8 150 -8 l155 0 75 155 76 155 584 0 585 0 106 -144 c58 -79 112 -149 120 -155 9 -8 50 -11 120 -9 l106 3 -173 272 -172 273 -578 0 -579 0 29 48 c15 27 80 132 143 235 l115 186 518 1 c285 0 517 4 515 8 -1 4 -28 52 -58 106 l-55 98 -191 -6 -190 -6 -297 526 -296 525 99 144 c55 78 100 146 100 151 0 7 -109 204 -113 204 -1 0 -73 -120 -160 -265z" />
-                    <path
-                        d="M2136 2376 c-36 -52 -66 -98 -66 -101 0 -5 480 -861 514 -917 9 -16 27 -18 133 -18 67 0 124 3 126 8 4 5 -621 1103 -637 1119 -2 2 -34 -39 -70 -91z" />
-                    <path
-                        d="M725 1233 c-170 -295 -312 -540 -313 -545 -2 -5 50 -7 119 -6 l123 3 249 450 c137 248 251 457 254 467 5 15 -101 168 -116 168 -3 -1 -145 -242 -316 -537z" />
-                    <path
-                        d="M1385 1077 c-17 -30 -131 -223 -255 -430 l-225 -376 -370 -3 -370 -3 -72 -125 -73 -125 482 -3 c266 -1 488 0 495 2 6 3 136 212 287 466 l276 461 -67 95 c-36 51 -69 94 -72 94 -4 0 -20 -24 -36 -53z" />
-                    <path
-                        d="M2037 893 c-13 -21 -49 -79 -80 -129 -31 -50 -57 -94 -57 -98 0 -3 231 -6 513 -6 l513 0 205 -322 204 -323 138 -3 c106 -2 137 0 137 10 -1 7 -117 213 -258 458 l-257 445 -517 3 -518 2 -23 -37z" />
-                    <path
-                        d="M1610 120 c-27 -55 -50 -102 -50 -105 0 -3 290 -5 645 -5 355 0 645 2 645 5 0 3 -34 51 -75 105 l-76 100 -519 0 -520 0 -50 -100z" />
-                </g>
-            </svg>
-        </div>
-
-        <div class="main-text">
-            <div class="content">
-                <h1 class="main-xam">XamSav</h1>
-                <h2 class="main-sub">Software Developer & Videogame Programmer</h2>
-            </div>
-        </div>
-
-        <!-- Social Links -->
-        <div class="social">
-            <div class="social-login-icons">
-                <div class="socialcontainer">
-                    <a href="https://x.com/XamSav">
-                        <div class="icon social-icon-1-1">
-                            <svg viewBox="0 0 512 512" height="1.7em" xmlns="http://www.w3.org/2000/svg"
-                                class="svgIcontwit" fill="white">
-                                <path
-                                    d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z">
-                                </path>
-                            </svg>
-                        </div>
-                        <div class="social-icon-1">
-                            <svg viewBox="0 0 512 512" height="1.7em" xmlns="http://www.w3.org/2000/svg"
-                                class="svgIcontwit" fill="white">
-                                <path
-                                    d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z">
-                                </path>
-                            </svg>
-                        </div>
-                    </a>
-                </div>
-                <div class="socialcontainer">
-                    <a href="https://github.com/XamSav">
-                        <!-- SVG del icono de GitHub -->
-                        <div class="icon social-icon-4-4">
-                            <svg fill="white" viewBox="0 0 496 512" height="1.6em">
-                                <path
-                                    d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z">
-                                </path>
-                            </svg>
-                        </div>
-                        <div class="social-icon-4">
-                            <svg fill="white" viewBox="0 0 496 512" height="1.6em">
-                                <path
-                                    d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z">
-                                </path>
-                            </svg>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
+        </nav>
     </header>
 
-    <!-- Main Content -->
-    <main>
+    <main id="main">
 
-        <!-- About Me -->
-        <section id="aboutme">
-            <h2>Hola, soy <span style="color:#fa5c5c">XamSav</span></h2>
+        <!-- Hero -->
+        <section class="hero" id="top">
+            <div class="container hero-grid">
+                <div>
+                    <p class="eyebrow">Estudio de videojuegos · Vic, Barcelona</p>
+                    <h1>Desarrollo de videojuegos en Unity que <em>funciona</em>.</h1>
+                    <p class="hero-lead">
+                        XamSav es un estudio de Osona especializado en <strong>programación Unity</strong> y
+                        <strong>backend para videojuegos</strong>. Trabajamos como vuestro equipo técnico externo:
+                        desarrollo para Android y Windows, optimización, QA y corrección de bugs para estudios y
+                        empresas de Barcelona, España y Europa.
+                    </p>
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" href="#contacto">Cuéntanos tu proyecto</a>
+                        <a class="btn btn-ghost" href="#servicios">Ver servicios</a>
+                    </div>
+                    <ul class="tag-list" aria-label="Tecnologías principales">
+                        <li>Unity</li>
+                        <li>C#</li>
+                        <li>Backend &amp; APIs</li>
+                        <li>Android</li>
+                        <li>Windows</li>
+                    </ul>
+                </div>
+                <div class="hero-logo" aria-hidden="true">
+                    <svg viewBox="0 0 370 315"><use href="#logo" /></svg>
+                </div>
+            </div>
+        </section>
 
-            <p>
-                Soy programador de videojuegos especializado en gameplay y sistemas interactivos,
-                apasionado por crear experiencias sólidas y divertidas.
-            </p>
+        <!-- Servicios -->
+        <section class="section section-alt" id="servicios" aria-labelledby="servicios-title">
+            <div class="container">
+                <div class="section-head reveal">
+                    <p class="eyebrow">Servicios</p>
+                    <h2 id="servicios-title">Servicios de desarrollo de videojuegos</h2>
+                    <p>
+                        Nos incorporamos a vuestro proyecto en la fase que lo necesite: desde un prototipo
+                        hasta un juego publicado que hay que mantener, acelerar o estabilizar.
+                    </p>
+                </div>
 
-            <p>
-                Empecé en la programación a los 18 años, siempre enfocado en el desarrollo de videojuegos
-                y en aprender nuevas tecnologías para mejorar como desarrollador.
-            </p>
+                <div class="grid grid-3">
+                    <article class="card reveal">
+                        <div class="icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="4" /><path d="M6 12h4M8 10v4M15 11h.01M18 13h.01" /></svg>
+                        </div>
+                        <h3>Desarrollo de juegos en Unity</h3>
+                        <p>Videojuegos y prototipos para Android y Windows: gameplay, UI, sistemas, integración de assets y builds listas para publicar.</p>
+                    </article>
 
-            <p><strong>Tecnologías:</strong></p>
-            <p>
-                🎮 Unity Engine <br>
-                🌐 Node.js, Laravel, .NET, Qt <br>
-                📚 C#, C++, Java, JavaScript, Swift, SQL
-            </p>
+                    <article class="card reveal">
+                        <div class="icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="7" rx="2" /><rect x="3" y="13" width="18" height="7" rx="2" /><path d="M7 7.5h.01M7 16.5h.01" /></svg>
+                        </div>
+                        <h3>Backend para videojuegos</h3>
+                        <p>APIs, bases de datos y sistemas online: autenticación, perfiles de jugador, inventario, estadísticas y guardado en la nube.</p>
+                    </article>
+
+                    <article class="card reveal">
+                        <div class="icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z" /></svg>
+                        </div>
+                        <h3>Optimización de juegos Unity</h3>
+                        <p>Profiling de CPU, GPU y memoria, tiempos de carga y rendimiento en móvil. Siempre con métricas de antes y después.</p>
+                    </article>
+
+                    <article class="card reveal">
+                        <div class="icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z" /><path d="m9 12 2 2 4-4" /></svg>
+                        </div>
+                        <h3>QA y testing de videojuegos</h3>
+                        <p>Planes de prueba, pruebas de regresión y reportes de errores claros y reproducibles para que vuestro equipo avance sin sorpresas.</p>
+                    </article>
+
+                    <article class="card reveal">
+                        <div class="icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="6" width="8" height="14" rx="4" /><path d="M12 20v-9M8 13H4M20 13h-4M8 17H5M19 17h-3M9 6 7 3M15 6l2-3" /></svg>
+                        </div>
+                        <h3>Corrección de bugs y rescate técnico</h3>
+                        <p>Entramos en proyectos Unity existentes para corregir errores, resolver bloqueos técnicos y dejar el código en un estado mantenible.</p>
+                    </article>
+
+                    <article class="card reveal">
+                        <div class="icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36L21 8" /><path d="M21 3v5h-5" /></svg>
+                        </div>
+                        <h3>Mantenimiento y soporte</h3>
+                        <p>Actualizaciones de versión de Unity y SDKs, soporte post-lanzamiento y mejoras continuas. Próximamente: multiplayer y porting.</p>
+                    </article>
+                </div>
+
+                <!-- Formatos de colaboración -->
+                <div class="engagements">
+                    <h3 class="subhead reveal">Formatos de colaboración</h3>
+                    <div class="grid grid-3">
+                        <article class="card engagement reveal">
+                            <span class="label">Tareas puntuales</span>
+                            <h4>Para empezar a trabajar juntos</h4>
+                            <ul>
+                                <li>Corrección de bugs concretos</li>
+                                <li>Sesiones de testing</li>
+                                <li>Auditoría y optimización</li>
+                            </ul>
+                        </article>
+                        <article class="card engagement reveal">
+                            <span class="label">Proyectos</span>
+                            <h4>Funcionalidades cerradas</h4>
+                            <ul>
+                                <li>Sistemas y gameplay en Unity</li>
+                                <li>Backend y servicios online</li>
+                                <li>Herramientas de editor</li>
+                            </ul>
+                        </article>
+                        <article class="card engagement reveal">
+                            <span class="label">Equipo externo</span>
+                            <h4>Colaboración continuada</h4>
+                            <ul>
+                                <li>Desarrollo completo de videojuegos</li>
+                                <li>Outsourcing de programación Unity</li>
+                                <li>Soporte a largo plazo</li>
+                            </ul>
+                        </article>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- Portfolio -->
-        <section id="portfolio" class="games">
-            <h2>Portfolio – Juegos</h2>
+        <section class="section" id="portfolio" aria-labelledby="portfolio-title">
+            <div class="container">
+                <div class="section-head reveal">
+                    <p class="eyebrow">Portfolio</p>
+                    <h2 id="portfolio-title">Portfolio de videojuegos</h2>
+                    <p>Juegos publicados en itch.io que puedes probar desde el navegador, y lo que estamos construyendo ahora mismo.</p>
+                </div>
 
-            <div class="row">
+                <div class="grid grid-2">
+                    <article class="card project reveal" id="nanocore-defense-protocol">
+                        <div class="project-body">
+                            <p class="project-meta">GameDev.tv Game Jam 2025 · Unity</p>
+                            <h3>NanoCore: Defense Protocol</h3>
+                            <p>Tower defense 2D para navegador creado en equipo durante la GameDev.tv Game Jam 2025. Programación de enemigos, generación procedural y sistema de opciones.</p>
+                            <ul class="tag-list">
+                                <li>Tower defense</li>
+                                <li>IA de enemigos</li>
+                                <li>Procedural</li>
+                                <li>HTML5</li>
+                            </ul>
+                        </div>
+                        <div class="project-embed">
+                            <iframe src="https://itch.io/embed/3575381?dark=true" width="552" height="167" loading="lazy" title="NanoCore: Defense Protocol, juego en itch.io">
+                                <a href="https://xamsav.itch.io/nanocore-defense-protocol">NanoCore: Defense Protocol en itch.io</a>
+                            </iframe>
+                        </div>
+                    </article>
 
-                <!-- Game 1 -->
-                <article class="card" id="asteroids">
-                    <div class="game-description">
-                        <h3>Asteroids</h3>
-                        <p>
-                            Proyecto con el que aprendí los conceptos básicos de programación en Unity,
-                            recreando una experiencia arcade clásica.
-                        </p>
+                    <article class="card project reveal" id="asteroids">
+                        <div class="project-body">
+                            <p class="project-meta">Prototipo arcade · Unity</p>
+                            <h3>Asteroids</h3>
+                            <p>Prototipo 2D de estilo retro inspirado en el clásico arcade, jugable en el navegador, al que seguimos añadiendo mecánicas y habilidades.</p>
+                            <ul class="tag-list">
+                                <li>Gameplay</li>
+                                <li>Retro 2D</li>
+                                <li>HTML5</li>
+                            </ul>
+                        </div>
+                        <div class="project-embed">
+                            <iframe src="https://itch.io/embed/2873645?linkback=true&amp;dark=true" width="552" height="167" loading="lazy" title="Asteroids, juego en itch.io">
+                                <a href="https://xamsav.itch.io/asteroids">Asteroids en itch.io</a>
+                            </iframe>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="grid grid-2 lab">
+                    <article class="card reveal">
+                        <span class="status">En desarrollo</span>
+                        <h3>Technical demo: Unity + backend</h3>
+                        <p>Juego conectado a API y base de datos con autenticación, perfiles de jugador, inventario y estadísticas online.</p>
+                    </article>
+                    <article class="card reveal">
+                        <span class="status">En desarrollo</span>
+                        <h3>Caso de estudio: optimización en Unity</h3>
+                        <p>Un proyecto Unity analizado y optimizado paso a paso, con métricas reales de rendimiento antes y después.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Proceso -->
+        <section class="section section-alt" id="proceso" aria-labelledby="proceso-title">
+            <div class="container">
+                <div class="section-head reveal">
+                    <p class="eyebrow">Cómo trabajamos</p>
+                    <h2 id="proceso-title">Del problema al resultado, con datos</h2>
+                    <p>Cada encargo sigue el mismo método, para que sepáis en todo momento qué hacemos y por qué.</p>
+                </div>
+
+                <ol class="steps">
+                    <li class="reveal">
+                        <h3>Problema</h3>
+                        <p>Entendemos qué necesitáis, el estado del proyecto y cuáles son las prioridades y los plazos.</p>
+                    </li>
+                    <li class="reveal">
+                        <h3>Análisis</h3>
+                        <p>Revisamos el código, medimos y detectamos la causa real antes de proponer cambios.</p>
+                    </li>
+                    <li class="reveal">
+                        <h3>Solución</h3>
+                        <p>Implementamos con código limpio y desacoplado, integrado en vuestro flujo de trabajo.</p>
+                    </li>
+                    <li class="reveal">
+                        <h3>Resultado</h3>
+                        <p>Entregamos el trabajo documentado y verificado, con métricas cuando aplican.</p>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Estudio -->
+        <section class="section" id="estudio" aria-labelledby="estudio-title">
+            <div class="container split">
+                <div class="reveal">
+                    <p class="eyebrow">El estudio</p>
+                    <h2 id="estudio-title">Estudio de videojuegos en Vic, con visión de producto</h2>
+                    <p class="lead">
+                        XamSav nace en Vic (Osona) con un modelo claro: servicios técnicos para la industria
+                        del videojuego y, en paralelo, desarrollo de nuestros propios juegos.
+                    </p>
+                    <p>
+                        Trabajar en proyectos de terceros nos mantiene al día de los retos reales de producción.
+                        Desarrollar nuestra propia IP nos obliga a pensar como un estudio: rendimiento, calidad
+                        y juegos terminados. Las dos cosas se refuerzan.
+                    </p>
+                    <p>
+                        No competimos con los grandes estudios: somos el equipo especializado que se incorpora
+                        cuando hace falta, en remoto o en persona en el área de Barcelona.
+                    </p>
+
+                    <div class="stack">
+                        <h3>Stack técnico</h3>
+                        <ul class="tag-list">
+                            <li>Unity</li>
+                            <li>C#</li>
+                            <li>C++</li>
+                            <li>.NET</li>
+                            <li>Node.js</li>
+                            <li>Laravel</li>
+                            <li>SQL</li>
+                            <li>JavaScript</li>
+                            <li>Java</li>
+                            <li>Qt</li>
+                        </ul>
                     </div>
+                </div>
 
-                    <div class="game-iframe">
-                        <iframe
-                            src="https://itch.io/embed/2873645?linkback=true"
-                            width="552"
-                            height="167"
-                            loading="lazy"
-                            frameborder="0">
-                            <a href="https://xamsav.itch.io/asteroids">
-                                Asteroids by XamSav
+                <ul class="feature-list">
+                    <li class="reveal">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></svg>
+                        <div>
+                            <strong>Desde Vic, para todo el mundo</strong>
+                            <span>A una hora de Barcelona y acostumbrados a trabajar en remoto con clientes de España y Europa.</span>
+                        </div>
+                    </li>
+                    <li class="reveal">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 2 9 5v10l-9 5-9-5V7z" /><path d="M12 22V12M21 7l-9 5-9-5" /></svg>
+                        <div>
+                            <strong>Framework propio para Unity</strong>
+                            <span>Módulos reutilizables de guardado, autenticación, inventario, analytics, logging y herramientas de editor que aceleran cada proyecto.</span>
+                        </div>
+                    </li>
+                    <li class="reveal">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6" /></svg>
+                        <div>
+                            <strong>Perfil técnico completo</strong>
+                            <span>Arquitectura, backend y sistemas críticos por un lado; gameplay, UI y testing por otro, sin cuellos de botella.</span>
+                        </div>
+                    </li>
+                    <li class="reveal">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3v4a1 1 0 0 0 1 1h4" /><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2Z" /><path d="M9 13h6M9 17h4" /></svg>
+                        <div>
+                            <strong>Propiedad intelectual clara</strong>
+                            <span>Definimos por contrato qué recibe el cliente desde el primer día. Sin letra pequeña.</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Preguntas frecuentes -->
+        <section class="section section-alt" id="preguntas" aria-labelledby="preguntas-title">
+            <div class="container">
+                <div class="section-head reveal">
+                    <p class="eyebrow">Preguntas frecuentes</p>
+                    <h2 id="preguntas-title">Preguntas sobre desarrollo de videojuegos con XamSav</h2>
+                </div>
+
+                <div class="faq">
+                    <details class="reveal">
+                        <summary><h3>¿Qué servicios de desarrollo de videojuegos ofrece XamSav?</h3></summary>
+                        <p>Desarrollo de videojuegos con Unity para Android y Windows, backend para juegos (APIs, bases de datos y sistemas online), optimización de rendimiento, QA y testing, corrección de bugs y mantenimiento de proyectos publicados.</p>
+                    </details>
+                    <details class="reveal">
+                        <summary><h3>¿Trabajáis con estudios y empresas de fuera de Vic?</h3></summary>
+                        <p>Sí. Estamos en Vic (Osona), a una hora de Barcelona, y trabajamos en remoto con estudios y empresas de toda España y Europa.</p>
+                    </details>
+                    <details class="reveal">
+                        <summary><h3>¿Podéis trabajar en un proyecto Unity que ya está empezado?</h3></summary>
+                        <p>Sí. Revisamos el código y el estado del proyecto, detectamos los problemas y corregimos errores o completamos funcionalidades sin necesidad de rehacerlo desde cero.</p>
+                    </details>
+                    <details class="reveal">
+                        <summary><h3>¿Cómo optimizáis un juego hecho en Unity?</h3></summary>
+                        <p>Primero medimos con herramientas como Unity Profiler y Frame Debugger para encontrar los cuellos de botella de CPU, GPU, memoria o tiempos de carga. Después aplicamos los cambios y entregamos métricas de antes y después.</p>
+                    </details>
+                    <details class="reveal">
+                        <summary><h3>¿Quién se queda con la propiedad intelectual del trabajo?</h3></summary>
+                        <p>Lo dejamos definido por contrato antes de empezar: qué recibe el cliente y qué herramientas reutilizables siguen siendo de XamSav.</p>
+                    </details>
+                    <details class="reveal">
+                        <summary><h3>¿Cuánto cuesta contratar a XamSav?</h3></summary>
+                        <p>Depende del alcance del trabajo. Cuéntanos qué necesitas en <a href="mailto:hola@xamsav.es" style="color:var(--accent)">hola@xamsav.es</a> y te preparamos un presupuesto sin compromiso.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contacto -->
+        <section class="section" id="contacto" aria-labelledby="contacto-title">
+            <div class="container">
+                <div class="cta reveal">
+                    <p class="eyebrow">Contacto</p>
+                    <h2 id="contacto-title">¿Tu proyecto Unity necesita manos expertas?</h2>
+                    <p>
+                        Cuéntanos en qué punto estáis y qué necesitáis. Te respondemos con una propuesta
+                        concreta, sin compromiso.
+                    </p>
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" href="mailto:hola@xamsav.es?subject=Proyecto%20para%20XamSav">hola@xamsav.es</a>
+                    </div>
+                    <ul class="social" aria-label="Redes sociales">
+                        <li>
+                            <a href="https://x.com/XamSav" aria-label="XamSav en X" rel="noopener me" target="_blank">
+                                <svg viewBox="0 0 512 512" aria-hidden="true"><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" /></svg>
                             </a>
-                        </iframe>
-                    </div>
-                </article>
-
-                <!-- Game 2 -->
-                <article class="card" id="nanocore-defense-protocol">
-                    <div class="game-description">
-                        <h3>NanoCore: Defense Protocol</h3>
-                        <p>
-                            Juego desarrollado durante una Game Jam, participando en la programación
-                            de enemigos, generación procedural y sistema de opciones.
-                        </p>
-                    </div>
-
-                    <div class="game-iframe">
-                        <iframe
-                            src="https://itch.io/embed/3575381"
-                            width="552"
-                            height="167"
-                            loading="lazy"
-                            frameborder="0">
-                            <a href="https://xamsav.itch.io/nanocore-defense-protocol">
-                                NanoCore: Defense Protocol
+                        </li>
+                        <li>
+                            <a href="https://github.com/XamSav" aria-label="XamSav en GitHub" rel="noopener me" target="_blank">
+                                <svg viewBox="0 0 496 512" aria-hidden="true"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8z" /></svg>
                             </a>
-                        </iframe>
-                    </div>
-                </article>
-
+                        </li>
+                        <li>
+                            <a href="https://xamsav.itch.io" aria-label="XamSav en itch.io" rel="noopener me" target="_blank">
+                                <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="fill:none"><rect x="2" y="6" width="20" height="12" rx="4" /><path d="M6 12h4M8 10v4M15 11h.01M18 13h.01" /></svg>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </section>
 
     </main>
 
     <!-- Footer -->
-    <footer>
-        <p>XamSav – Samuel Viguera Pulgar</p>
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <a class="brand" href="#top" aria-label="XamSav, volver arriba">
+                <svg aria-hidden="true"><use href="#logo" /></svg>
+                XamSav
+            </a>
+            <p style="margin:0">© <span data-year>2026</span> XamSav · Estudio de videojuegos en Vic, Barcelona</p>
+            <ul class="footer-links">
+                <li><a href="aviso-legal.html">Aviso legal</a></li>
+                <li><a href="privacidad.html">Privacidad y cookies</a></li>
+                <li><button class="link-button" type="button" data-consent="settings">Configurar cookies</button></li>
+            </ul>
+        </div>
     </footer>
 
+    <!-- Banner de cookies -->
+    <div class="consent" id="consent" role="dialog" aria-live="polite" aria-label="Preferencias de cookies" hidden>
+        <p>
+            Usamos cookies de analítica (Google Tag Manager) solo si las aceptas, para saber cómo se usa la web.
+            Más información en <a href="privacidad.html#cookies">nuestra política de cookies</a>.
+        </p>
+        <div class="consent-actions">
+            <button class="btn btn-primary btn-sm" type="button" data-consent="granted">Aceptar</button>
+            <button class="btn btn-ghost btn-sm" type="button" data-consent="denied">Rechazar</button>
+        </div>
+    </div>
 </body>
+
 </html>
