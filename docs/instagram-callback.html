@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<title>Conectando con Instagram</title>
+<style>body{font:16px system-ui,sans-serif;margin:3rem 1rem;text-align:center;color:#333;background:#fafafa}</style>
+</head>
+<body>
+<p id="msg">Volviendo a tu panel de Instagram…</p>
+<script>
+  // Instagram only redirects to https; this static page hands the code to the local panel.
+  // The panel's own state check decides whether the login is accepted.
+  const query = location.search;
+  const port = (new URLSearchParams(query).get("state") || "").split(".")[0];
+  const target = /^\d{2,5}$/.test(port) ? port : "4747";
+  location.replace("http://localhost:" + target + "/callback" + query);
+  setTimeout(() => {
+    document.getElementById("msg").textContent =
+      "Si no vuelves al panel, comprueba que se está ejecutando (npm run dashboard) y vuelve a pulsar Iniciar sesión.";
+  }, 4000);
+</script>
+</body>
+</html>
