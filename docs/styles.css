@@ -610,6 +610,15 @@ p {
 
 /* ---------- Portfolio ---------- */
 
+.project.featured {
+    grid-column: 1 / -1;
+}
+
+.lead-game {
+    font-size: 1.1rem;
+    color: var(--text);
+}
+
 .project {
     display: flex;
     flex-direction: column;
@@ -693,7 +702,8 @@ p {
     margin-bottom: 10px;
 }
 
-.steps h3 {
+.steps h3,
+.steps h4 {
     font-size: 1.15rem;
 }
 
