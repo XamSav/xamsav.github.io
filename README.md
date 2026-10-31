@@ -33,4 +33,4 @@ Y abrir http://localhost:8765.
 ## Antes de publicar
 
 - Si se constituye la S.L. o se empieza a facturar, actualizar titular, NIF y domicilio en `aviso-legal.html` y `privacidad.html` (la LSSI los exige cuando hay actividad económica).
-- Confirmar que el buzón `hola@xamsav.es` existe.
+- Confirmar que el buzón `samuel81@hotmail.es` existe.

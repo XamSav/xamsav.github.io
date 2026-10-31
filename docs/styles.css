@@ -284,6 +284,8 @@ p {
 
     .nav-links .btn {
         justify-content: center;
+        text-align: center;
+        border-radius: 12px;
         margin-top: 12px;
     }
 }
