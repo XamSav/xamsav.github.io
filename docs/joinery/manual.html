@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joinery Manual | XamSav</title>
+<meta name="description" content="The full manual of Joinery, a modular building system for Unity 6: parts, sockets, grids, controller, areas, menus, touch, scripting and performance.">
+<link rel="canonical" href="https://xamsav.es/joinery/manual.html">
+<meta name="theme-color" content="#121319">
+<link rel="icon" href="../favicon.ico" sizes="48x48">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../styles.css">
+<link rel="stylesheet" href="joinery.css">
+</head>
+<body>
+<header class="site-header"><nav class="container nav" aria-label="Main">
+<a class="brand" href="../">XamSav</a>
+<ul class="sub-links"><li><a href="./">Joinery</a></li><li><a href="Joinery-Manual.pdf">PDF</a></li></ul>
+</nav></header>
+<main class="container doc">
+<h1 id="joinery-manual">Joinery — Manual</h1>
+<p><em>Modular Building System for Unity.</em> Everything lives in the <code>XamSav.Building</code> namespace. Every field in the inspector has a tooltip; this manual explains how the pieces fit together and when to use each one.</p>
+<h2 id="contents">Contents</h2>
+<ol>
+<li><a href="#1-how-it-works">How it works</a></li>
+<li><a href="#2-setting-up-a-scene">Setting up a scene</a></li>
+<li><a href="#3-building-parts">Building Parts</a></li>
+<li><a href="#4-sockets">Sockets</a></li>
+<li><a href="#5-grids">Grids</a></li>
+<li><a href="#6-building-controller-input-views-and-camera">Building Controller, input, views and camera</a></li>
+<li><a href="#7-building-manager">Building Manager</a></li>
+<li><a href="#8-building-areas-and-rules">Building Areas and rules</a></li>
+<li><a href="#9-terrain">Terrain</a></li>
+<li><a href="#10-menus">Menus</a></li>
+<li><a href="#11-touch-screens">Touch screens</a></li>
+<li><a href="#12-scripting">Scripting</a></li>
+<li><a href="#13-performance">Performance</a></li>
+<li><a href="#14-limitations-and-troubleshooting">Limitations and troubleshooting</a></li>
+</ol>
+<hr />
+<h2 id="1-how-it-works">1. How it works</h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>Component</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Part</td>
+<td><code>BuildPiece</code></td>
+<td>A prefab that can be built: a wall, a floor, a sofa.</td>
+</tr>
+<tr>
+<td>Socket</td>
+<td><code>BuildSocket</code></td>
+<td>A point on a part where other parts snap.</td>
+</tr>
+<tr>
+<td>Controller</td>
+<td><code>BuildingController</code></td>
+<td>The player's building tool: it shows the preview and places, destroys, moves and upgrades parts.</td>
+</tr>
+<tr>
+<td>Input</td>
+<td><code>BuildingInput</code></td>
+<td>Reads the player's actions (Input System) and hands them to the controller.</td>
+</tr>
+<tr>
+<td>View</td>
+<td><code>BuildingView</code></td>
+<td>Where the player aims: first person, third person, top-down or orbital.</td>
+</tr>
+<tr>
+<td>Manager</td>
+<td><code>BuildingManager</code></td>
+<td>One per scene. It keeps every placed part and runs undo/redo, the grid, grouping, saving and collapse.</td>
+</tr>
+<tr>
+<td>Area</td>
+<td><code>BuildZone</code></td>
+<td>A volume where building is allowed or restricted, with optional rules.</td>
+</tr>
+</tbody>
+</table>
+<p>The controller has five modes: <strong>None</strong>, <strong>Placement</strong>, <strong>Destruction</strong>, <strong>Adjustment</strong> (pick a part up and move it) and <strong>Upgrade</strong>. Each mode is a state component (<code>PlacementState</code>, <code>DestructionState</code>, <code>AdjustmentState</code>, <code>UpgradeState</code>).</p>
+<p>Every action goes through the manager as a command, so it can be undone.</p>
+<p>Before an action is allowed, the controller asks two things:</p>
+<ul>
+<li><strong>The part's conditions:</strong> components on the part such as Common, Collision, Collapse and Terrain.</li>
+<li><strong>The areas around it:</strong> their switches and rules.</li>
+</ul>
+<p>When something refuses, the preview turns red and the controller raises <code>ValidationFailed</code> with the reason.</p>
+<hr />
+<h2 id="2-setting-up-a-scene">2. Setting up a scene</h2>
+<ol>
+<li><strong>Building Manager.</strong> Use <strong>GameObject &gt; XamSav &gt; Joinery &gt; Components &gt; Create Building Manager...</strong>. A scene holds one; the menu is greyed out once it has it.</li>
+<li><strong>Controller.</strong> Add <code>BuildingController</code> to the camera, or to the player. <code>BuildingInput</code> comes with it. When the game starts the controller adds:
+   - any missing mode states;
+   - a <code>FirstPersonBuildingView</code> if it has no view.</li>
+<li><strong>Parts.</strong> Fill the controller's <strong>Pieces</strong> with part prefabs. These are what the mouse wheel cycles through.</li>
+<li><strong>Optional, in any order:</strong>
+   - <code>BuildCamera</code> on the same camera: fly in first person or switch to top-down with <strong>V</strong>.
+   - A catalog or radial menu (section 10).
+   - <code>BuildingTouchControls</code> on the camera (section 11).
+   - Areas (section 8).
+   - A <code>BuildBatcher</code> on the camera, for large bases (section 13).</li>
+</ol>
+<p><strong>Start Mode</strong> on the controller picks the mode at launch. <strong>None</strong> means the player presses <strong>E</strong> first.</p>
+<h3 id="default-controls">Default controls</h3>
+<p>They come from <code>Runtime/Resources/XamSavBuildingInput.inputactions</code>, map <em>Building</em>.</p>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Keyboard / mouse</th>
+<th>Gamepad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Validate (place, destroy, pick up, drop, upgrade)</td>
+<td>Left button</td>
+<td>Right trigger</td>
+</tr>
+<tr>
+<td>Cancel</td>
+<td>Right button</td>
+<td>B / East</td>
+</tr>
+<tr>
+<td>Rotate</td>
+<td>R</td>
+<td>Right shoulder</td>
+</tr>
+<tr>
+<td>Select next / previous part</td>
+<td>Mouse wheel</td>
+<td>D-pad left / right</td>
+</tr>
+<tr>
+<td>Axis lock (move along a straight line while held)</td>
+<td>Left Shift</td>
+<td>Left trigger</td>
+</tr>
+<tr>
+<td>Placement / Destruction / Adjustment / Upgrade mode</td>
+<td>E / X / T / U</td>
+<td>D-pad up / D-pad down / Y (North) / X (West)</td>
+</tr>
+</tbody>
+</table>
+<p>To use your own actions, point the <code>InputActionReference</code> fields of <strong>Building Input</strong> at your asset. Empty fields use the default asset.</p>
+<p>Two more settings on <strong>Building Input</strong>:</p>
+<ul>
+<li><strong>Block When Pointer Over UI</strong> stops a click on a button from also placing a part.</li>
+<li><strong>Enable Direct Controls</strong> off: the component no longer switches modes or cycles parts by itself. Use it when your own UI drives everything.</li>
+</ul>
+<hr />
+<h2 id="3-building-parts">3. Building Parts</h2>
+<p><img loading="lazy" alt="The catalog, with thumbnails rendered from the parts" src="img/catalog.png" /></p>
+<h3 id="making-a-part">Making a part</h3>
+<p>Select one or more models in the scene and run <strong>GameObject &gt; XamSav &gt; Joinery &gt; Components &gt; Create Building Part...</strong>. For each model it:</p>
+<ul>
+<li>creates a root object with <code>BuildPiece</code> (which brings <code>CommonCondition</code>) and <code>CollisionCondition</code>;</li>
+<li>adds a Mesh Collider to every renderer that has no collider, and makes its mesh readable;</li>
+<li>saves a prefab where you choose and adds it to the <strong>Building Part Registry</strong>.</li>
+</ul>
+<p>You can also add <code>BuildPiece</code> to any prefab by hand.</p>
+<h3 id="identity">Identity</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Piece Id</strong></td>
+<td>The key in save files, the registry and the manager's Library. Keep it unique, and do not change it once players have saves.</td>
+</tr>
+<tr>
+<td><strong>Display Name</strong></td>
+<td>Shown in menus. Empty: the prefab name.</td>
+</tr>
+<tr>
+<td><strong>Description</strong></td>
+<td>Optional text for your menus.</td>
+</tr>
+<tr>
+<td><strong>Category</strong></td>
+<td>A free tag such as <code>Walls</code> or <code>Furniture</code>, used by menus, sockets, areas and rules. Spelling and case count.</td>
+</tr>
+<tr>
+<td><strong>Thumbnail</strong></td>
+<td>Icon for menus. Empty: menus render one from the model. <strong>Generate Thumbnail...</strong> in the inspector saves that render as a sprite and assigns it.</td>
+</tr>
+<tr>
+<td><strong>Type</strong></td>
+<td>A <code>PieceType</code> flag: Foundation, Wall, Floor, Roof, Stairs, Prop, Triangle, WallProp, CeilingProp, TriangleFloor. Sockets and areas filter by it.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="placement">Placement</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Free Placement</strong></td>
+<td>The part can stand on any surface (snapped to the controller's <strong>Grid Size</strong>) when no socket is near. Off: it only goes on sockets.</td>
+</tr>
+<tr>
+<td><strong>Overlap Tolerance</strong></td>
+<td>How deep (m) it may sink into another part.</td>
+</tr>
+<tr>
+<td><strong>Smooth Movement</strong></td>
+<td>The preview glides instead of jumping (10–15 feels natural; 0 = instant).</td>
+</tr>
+<tr>
+<td><strong>Rotation Step</strong></td>
+<td>Degrees per rotate press. 0 uses the controller's step.</td>
+</tr>
+<tr>
+<td><strong>Surface Alignment</strong></td>
+<td>Tilts to match the surface (decorations, signs).</td>
+</tr>
+<tr>
+<td><strong>Force Grounding</strong></td>
+<td>Drops to the ground under the aimed point.</td>
+</tr>
+<tr>
+<td><strong>Use Grid Snapping</strong> / <strong>Cell Size</strong></td>
+<td>Snaps to grid cells and takes <strong>Cell Size</strong> cells (section 5).</td>
+</tr>
+<tr>
+<td><strong>Upgrade To</strong></td>
+<td>The prefab that replaces it in Upgrade mode, once it has no more variants.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="conditions">Conditions</h3>
+<p>Conditions are components on the part. They decide whether an action is allowed. Each one has <strong>Condition Enabled</strong> and <strong>Show Logs</strong> (prints every refusal to the Console).</p>
+<ul>
+<li><strong>Common Condition</strong> (always present):</li>
+<li>which modes may touch the part (<strong>Allow Placement / Destruction / Adjustment / Upgrade</strong>);</li>
+<li><strong>Require Socket</strong>: the part must snap, like a window in a wall;</li>
+<li><strong>Ignore Areas</strong>: the part skips every area restriction.</li>
+<li><strong>Collision Condition:</strong></li>
+<li><strong>Block Overlapping Parts</strong> tests the part's colliders against placed parts. Without this condition, a part does not check overlaps at all.</li>
+<li><strong>Bounds</strong> adds boxes that must be free, or that must touch something (<strong>Require Contact</strong>) or the terrain (<strong>Require Terrain</strong>). Example: a lamp that must hang from a ceiling.</li>
+<li><strong>Collapse Condition:</strong> the part needs support (section 7, <em>Collapse</em>).</li>
+<li><strong>Terrain Condition:</strong> refuses terrain that is too steep, terrain layers you list, or spots near trees you list.</li>
+</ul>
+<p>To write your own condition, see section 12.</p>
+<h3 id="behaviors">Behaviors</h3>
+<p>Behaviors react to the part's events: <code>PreviewCreated</code>, <code>Placed</code>, <code>Adjusted</code>, <code>Upgraded</code>, <code>Destroyed</code>.</p>
+<ul>
+<li><strong>Building Animation Behavior</strong> maps each event to a curve on scale, position or rotation, or to an Animator state. While it plays, the part counts as busy.</li>
+<li><strong>Building Debris Behavior</strong> spawns debris and plays a sound when the part is destroyed. With no prefab it makes chunks from the part's renderers. It can have different debris per variant, and can also fire on collapse.</li>
+</ul>
+<p>To write your own behavior, see section 12.</p>
+<h3 id="durability-and-damage">Durability and damage</h3>
+<p><strong>Building Durability</strong> gives a part hit points:</p>
+<ul>
+<li><strong>Max Health:</strong> one value per renderer variant, so a stone tier can be sturdier than a wood one. One value covers every variant.</li>
+<li><strong>Damage and repair:</strong> <code>Damage(amount)</code> takes hit points away, <code>Repair()</code> gives them all back (or <code>Repair(amount)</code> some), and <code>SetDamage(value)</code> sets them directly. <code>Health</code>, <code>MaxHealth</code> and <code>Damage01</code> (0 intact, 1 broken) read them.</li>
+<li><strong>Destroy When Broken:</strong> at 0 the part is destroyed through the Building Manager, so it collapses, throws its debris and can be undone. Off, it stays at 0 until repaired.</li>
+<li><strong>Repair On Upgrade:</strong> an upgraded part is built anew, at full health.</li>
+<li><strong>Saving:</strong> the damage goes into save files with the part, and comes back with an undo of its destruction.</li>
+<li><strong>Events:</strong> <strong>On Damaged</strong>, <strong>On Repaired</strong>, <strong>On Broken</strong> and <strong>On Health Changed</strong>, for sounds, particles or your own UI. From code, <code>Changed</code> is raised on every change.</li>
+</ul>
+<p>How the damage looks is up to you. Add any mix of these effects next to it, or none, and the part looks the same at any health:</p>
+<table>
+<thead>
+<tr>
+<th>Effect</th>
+<th>What it shows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Damage Tint</strong></td>
+<td>The part's colour shifts towards <strong>Tint</strong>, up to <strong>Strength</strong>. It uses a property block, so materials stay shared.</td>
+</tr>
+<tr>
+<td><strong>Damage Marks</strong></td>
+<td>Marks on the broad faces of each mesh, more of them as the part weakens, in <strong>Stages</strong> steps. <strong>Tiles</strong>: square holes on a grid of <strong>Tile Size</strong>, in clusters; match it to your texture's grid. <strong>Sprites</strong>: your own sprites (cracks, scorch marks), <strong>Mark Size</strong> wide, <strong>Density</strong> per m². <strong>Prefabs</strong>: your own prefabs, scaled the same way. Every mark stays inside its face, has no collider, is never saved, and is laid out again only when the part stops animating. Marks already shown stay where they are as damage grows; new ones pop open and repaired ones shrink shut over <strong>Transition</strong> seconds.</td>
+</tr>
+<tr>
+<td><strong>Damage Model Swap</strong></td>
+<td>From a share of damage (<strong>From</strong>), the part's renderers are hidden and a damaged model is shown in their place. Several steps make several stages. The part keeps its colliders, sockets and Piece Id.</td>
+</tr>
+</tbody>
+</table>
+<p>Every effect has <strong>Show From</strong> (the damage it starts at) and <strong>Hide While Highlighted</strong> (a clean preview when a controller aims at the part). To make your own, derive from <code>DamageEffect</code> and override <code>Show(float amount)</code>.</p>
+<h3 id="renderer-variants">Renderer variants</h3>
+<p><strong>Variants</strong> are optional looks of the same part, such as a wood, stone and metal tier, or damage states. Each variant lists:</p>
+<ul>
+<li>the child <strong>Objects</strong> shown while it is active;</li>
+<li>its <strong>Material Sets</strong>.</li>
+</ul>
+<p>Upgrade mode moves a part to its next variant. After the last variant, it replaces the part with <strong>Upgrade To</strong>. From code: <code>piece.SetVariant(index, set)</code>, or <code>BuildingManager.Upgrade(piece, variant, set)</code>, which can be undone.</p>
+<h3 id="presets">Presets</h3>
+<p>A <strong>Building Part Preset</strong> stores a part's setup: placement settings, conditions, behaviors and, optionally, sockets. You can then apply it to other parts. Use the buttons at the bottom of the Building Part inspector.</p>
+<h3 id="blueprints">Blueprints</h3>
+<p>A <strong>Building Blueprint</strong> is a whole structure (a hut, a house, a fence) that the player places in one go, like a single part:</p>
+<ul>
+<li><strong>Making one:</strong> select placed parts in the scene (in Edit or Play mode) and use <strong>GameObject &gt; XamSav &gt; Joinery &gt; Create Blueprint From Selection...</strong>. You can also use <em>Create &gt; XamSav &gt; Joinery &gt; Building Blueprint</em> and fill the list by hand.</li>
+<li><strong>The anchor:</strong> the first part, the lowest one when captured. It snaps to sockets or the grid like any part, and the other parts keep their place around it. Rotating the preview turns the whole blueprint.</li>
+<li><strong>Placing:</strong> a menu slot with the <strong>Blueprint</strong> action, or <code>controller.SelectBlueprint(blueprint)</code> from code. The preview turns red when the anchor cannot stand there, when another part would overlap a placed part, or when a Building Area refuses one of them.</li>
+<li><strong>Undo:</strong> one Undo removes the whole blueprint.</li>
+<li><strong>Build Mode:</strong> how the parts go up once it is placed.</li>
+<li><strong>Instant:</strong> all at once.</li>
+<li><strong>Sequential:</strong> one after another, every <strong>Part Interval</strong> seconds, on their own.</li>
+<li><strong>Planned:</strong> only a plan is laid out. Your game builds each part with <code>site.BuildNext()</code>, for example when the player pays for it.</li>
+</ul>
+<p>With Sequential and Planned, the placed blueprint becomes a <strong>Blueprint Site</strong>. The parts still to build show as a translucent blue plan (<code>BlueprintSite.PlanColor</code>). Parts go up bottom first. A part that something blocks waits: <code>CanBuildNext(out reason)</code> says why. A part of an unfinished site that gets destroyed goes back to the plan. One Undo takes the whole site down; with Planned, each <code>BuildNext</code> is undone on its own. Unfinished sites are saved and loaded with the Building Manager's save. Sequential sites need a Building Manager in the scene.
+- <strong>Missing prefabs:</strong> each part stores its prefab and its Piece Id. With no prefab, the Library and the Building Part Registry are used. Parts still missing are left out.</p>
+<ul>
+<li><strong>Player blueprints:</strong> players can save what they built and place it again in later sessions. <code>BuildingBlueprintStorage.SaveNew(parts)</code> writes one JSON file per blueprint to <code>Application.persistentDataPath/Blueprints</code> (change it with <code>Folder</code>). <code>All</code> lists them, <code>IsSaved(blueprint)</code> tells a saved one from an asset, and <code>Delete(name)</code> or <code>Delete(blueprint)</code> removes one. Files keep only Piece Ids, so every part must be in the Library or the Building Part Registry.</li>
+<li><strong>In the menus:</strong> set a menu's <strong>Saved Blueprints Category</strong> to a name and the saved blueprints show up there, as the last category. The list updates when one is saved or deleted.</li>
+</ul>
+<p>The main demo has three in the <strong>Blueprints</strong> category of its menus (<code>Demo/Blueprints</code>):
+- <strong>Hut:</strong> Sequential.
+- <strong>Small House:</strong> Instant.
+- <strong>Small House Plan:</strong> Planned; aim at its plan and press <strong>N</strong> to build the next part. Aim at a structure and press <strong>B</strong> to save it; it appears under <strong>My Blueprints</strong>. Pick one there and press <strong>Delete</strong> twice to remove it (the first press asks). On touch screens, the <strong>Save Blueprint</strong> and <strong>Delete Blueprint</strong> buttons do the same.</p>
+<h3 id="building-part-registry">Building Part Registry</h3>
+<p>The registry is one asset at <code>Assets/Resources/XamSavBuildingPartRegistry.asset</code>. It is created when needed and lists every part in the project. The manager uses it to rebuild a part from its Piece Id (undo, loading) when the part is not in its <strong>Library</strong>. Prefabs with <code>BuildPiece</code> join it automatically. <strong>Tools &gt; XamSav &gt; Joinery &gt; Refresh Building Part Registry</strong> rebuilds it.</p>
+<hr />
+<h2 id="4-sockets">4. Sockets</h2>
+<p>A <code>BuildSocket</code> is a child of a part, placed where another part should attach. Its forward axis is the direction the attached part faces. Create one with <strong>GameObject &gt; XamSav &gt; Joinery &gt; Components &gt; Create Building Socket...</strong>; the editor shows handles to place it.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Snapping Points</strong></td>
+<td>What fits here, checked in order; the first match wins. Each point matches by <strong>Category</strong> (recommended), <strong>Reference</strong> (one prefab) or <strong>Type</strong> (piece types), and adds a position, rotation and scale offset.</td>
+</tr>
+<tr>
+<td><strong>Accepts</strong></td>
+<td>Piece types that fit, used only while there are no snapping points.</td>
+</tr>
+<tr>
+<td><strong>Priority</strong></td>
+<td>Which socket wins when several are in reach.</td>
+</tr>
+<tr>
+<td><strong>Radius</strong></td>
+<td>How near the aim must be. 0 uses the view's <strong>Snap Radius</strong>.</td>
+</tr>
+</tbody>
+</table>
+<p>When the player aims, the controller looks at the sockets near the aimed point. The highest priority wins, then the nearest, then the best facing. A socket is skipped when:</p>
+<ul>
+<li>it is more than <strong>Snap Max Angle</strong> away from the ray;</li>
+<li><strong>Snap Obstruction Check</strong> is on in the view and something blocks it;</li>
+<li>the socket is off, or its part is a preview, is being moved or is being destroyed.</li>
+</ul>
+<p>A socket does not know whether something already stands on it. A second part on the same socket is stopped by its Collision Condition, because the two overlap.</p>
+<p>Sockets do not have to belong to a part: a loose socket in the scene (a mounting point) works too.</p>
+<hr />
+<h2 id="5-grids">5. Grids</h2>
+<p>Turn on <strong>Building Manager &gt; Grid Settings &gt; Enable Grid</strong> to get a world grid of <strong>Size</strong> cells, each <strong>Cell Size</strong> metres, centred on the manager. Parts with <strong>Use Grid Snapping</strong> then snap to cells and take <strong>Cell Size</strong> cells of the grid; occupied cells refuse other parts.</p>
+<ul>
+<li><strong>Build Grid</strong> components are local grids with their own cell size. Inside their box they take over from the world grid.</li>
+<li><strong>Appearance:</strong></li>
+<li><strong>Grid Material</strong> can be edited inline; the default is <code>XamSavGridMaterial</code>.</li>
+<li><strong>Show Occupied Footprints</strong> shades the cells parts take, and <strong>Show Placement Footprint</strong> shades the cells under the preview.</li>
+<li><strong>Grid Visibility By Mode</strong> sets in which modes the grid shows.</li>
+<li><strong>Follow:</strong> <code>SetFollowTarget(transform, true)</code> moves the grid with the player, one whole cell at a time. Use it for endless worlds.</li>
+<li><strong>From code</strong> (<code>BuildingManager.Instance.GridSystem</code>):</li>
+<li><code>GetCell(x, y)</code> or <code>GetCell(worldPosition)</code> returns the cell, whether it is occupied and the part on it;</li>
+<li><code>SetGridVisualsVisible(bool)</code> shows or hides the grid;</li>
+<li><code>RefreshGrid()</code> redraws it.</li>
+</ul>
+<hr />
+<h2 id="6-building-controller-input-views-and-camera">6. Building Controller, input, views and camera</h2>
+<h3 id="controller">Controller</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Pieces</strong></td>
+<td>The parts the select action cycles through. Menus replace it with their category.</td>
+</tr>
+<tr>
+<td><strong>Views</strong></td>
+<td>Where the player aims. The first one starts active; switch with <code>SetView</code>.</td>
+</tr>
+<tr>
+<td><strong>Start Mode</strong></td>
+<td>Mode at launch.</td>
+</tr>
+<tr>
+<td><strong>Grid Size</strong></td>
+<td>Snapping step for free placement (0 = none).</td>
+</tr>
+<tr>
+<td><strong>Rotation Step</strong></td>
+<td>Default degrees per rotate press.</td>
+</tr>
+<tr>
+<td><strong>Allow Outside Zones</strong></td>
+<td>Off: building only works inside a Building Area.</td>
+</tr>
+<tr>
+<td><strong>Valid / Invalid / Adjust Color, Upgrade Tint</strong></td>
+<td>Preview colours.</td>
+</tr>
+</tbody>
+</table>
+<p>Each state component has two settings:</p>
+<ul>
+<li><strong>Cancel State After Validation</strong>: leave the mode after one action. Handy for destruction and upgrade.</li>
+<li><strong>Show Logs</strong>: print refusals to the Console.</li>
+</ul>
+<h3 id="views">Views</h3>
+<p>All views share the ray settings: <strong>Raycast Distance</strong>, <strong>Raycast Layer</strong>, <strong>Raycast Offset</strong>, the valid-distance limits, <strong>Snap Radius</strong>, <strong>Snap Max Angle</strong> and <strong>Snap Obstruction Check</strong>.</p>
+<ul>
+<li><strong>First Person:</strong> the ray goes from the centre of the screen, or along <strong>Origin Transform</strong> if you set one.</li>
+<li><strong>Third Person:</strong> the ray goes along the camera's forward, starting at the camera shifted by <strong>Raycast Offset</strong>. Push the offset's Z forward so the ray starts past the character.</li>
+<li><strong>Top Down:</strong> the ray goes through the cursor or finger. Distance is measured on the ground from <strong>Distance Origin</strong>.</li>
+<li><strong>Orbital:</strong> the ray goes through the cursor, for an orbiting camera.</li>
+</ul>
+<h3 id="build-camera">Build Camera</h3>
+<p><code>BuildCamera</code> is a ready-made camera for prototypes and the demos. It has two modes:</p>
+<ul>
+<li><strong>First Person:</strong> WASD to move, Space / Ctrl to go up and down, the mouse to look.</li>
+<li><strong>Top-Down:</strong> WASD to pan, the middle mouse button to rotate, the wheel to zoom.</li>
+</ul>
+<p><strong>V</strong> switches between them, and the camera tells the controller which view to use. In your own game you will usually keep your own camera and add a view to it.</p>
+<hr />
+<h2 id="7-building-manager">7. Building Manager</h2>
+<h3 id="commands-and-undo">Commands and undo</h3>
+<p>Placing, destroying, moving and upgrading are commands. <code>Undo()</code> and <code>Redo()</code> walk back through the last <strong>History Size</strong> of them; <code>ClearHistory()</code> empties the list.</p>
+<p>The same actions are available from code as static methods: <code>BuildingManager.Place</code>, <code>DestroyPiece</code>, <code>Move</code> and <code>Upgrade</code> (section 12).</p>
+<p><strong>Library</strong> lists the prefabs the manager can rebuild by Piece Id. Parts not in it are looked up in the registry.</p>
+<h3 id="grouping">Grouping</h3>
+<p><strong>Grouping Settings &gt; Enable Grouping</strong> collects touching parts into structures (<code>BuildGroup</code>). A structure splits when a part in the middle goes.</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Neighbor Distance</strong></td>
+<td>How near two parts must be to share a structure.</td>
+</tr>
+<tr>
+<td><strong>Default Pivot Mode</strong></td>
+<td>Where a group's pivot goes: Center, Ground, Group Transform or First Part.</td>
+</tr>
+<tr>
+<td><strong>Dont Destroy Group</strong></td>
+<td>Keep a group's object when its last part goes.</td>
+</tr>
+<tr>
+<td><strong>Parent Pieces</strong></td>
+<td>Put each structure's parts under its own object in the Hierarchy.</td>
+</tr>
+</tbody>
+</table>
+<p><code>GroupingSystem.GroupOf(piece)</code> returns a part's structure. Groups with a Rigidbody are recentred every frame.</p>
+<h3 id="saving">Saving</h3>
+<p><strong>Save Settings &gt; Enable Saving.</strong> Each scene gets its own slot (<strong>File Name</strong> plus the scene name), and a save refuses to load into another scene.</p>
+<ul>
+<li><strong>Save Mode:</strong></li>
+<li><strong>Automatic</strong> loads on Start and saves when the game ends (on mobile, also when the app is paused). <strong>Auto Save</strong> adds a save every <strong>Auto Save Interval</strong> seconds.</li>
+<li><strong>Manual</strong>: call <code>Save()</code> and <code>Load()</code> yourself.</li>
+<li><strong>Storage:</strong></li>
+<li><strong>PlayerPrefs</strong>;</li>
+<li><strong>Local File Data</strong>, in <code>Application.dataPath</code> (handy in the Editor);</li>
+<li><strong>Local File Persistent</strong>, in <code>Application.persistentDataPath</code> (use this in builds).</li>
+<li>File storages keep a <code>.bak</code> copy and fall back to it if the main file is damaged.</li>
+<li><strong>What is saved</strong> for each part: position, rotation, scale, the socket it sits on, its variant and your own data (section 12).</li>
+</ul>
+<h3 id="collapse">Collapse</h3>
+<p>Give a part a <strong>Collapse Condition</strong> and it needs support.</p>
+<ul>
+<li><strong>Placing:</strong> it is refused where nothing would hold it (<strong>Require Support To Place</strong>).</li>
+<li><strong>Once placed:</strong> when a part loses every chain of touching parts down to the ground, it falls as a Rigidbody for <strong>Fall Time</strong> and disappears. <strong>Fall Push</strong> and <strong>Fall Spin</strong> give each falling part a random push and spin, so a structure comes apart as it falls instead of dropping in one block (0 drops it straight down).</li>
+<li><strong>Support Type</strong> sets what holds a part up: any collider, other parts only, or parts of the <strong>Support Categories</strong>.</li>
+<li>A part without this condition never falls, and holds up what rests on it, like the ground.</li>
+</ul>
+<p>The physics settings on the manager turn collapse on and off and set <strong>Debris Lifetime</strong>.</p>
+<hr />
+<h2 id="8-building-areas-and-rules">8. Building Areas and rules</h2>
+<p><img loading="lazy" alt="The interior demo: one area per room, each with its own rules" src="img/interior.png" /></p>
+<p>Create one with <strong>GameObject &gt; XamSav &gt; Joinery &gt; Components &gt; Create Building Area...</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Global</strong></td>
+<td>Its rules apply to the whole scene (no volume).</td>
+</tr>
+<tr>
+<td><strong>Shape</strong></td>
+<td>Bounds (an axis-aligned box), Sphere, or Collider (the object's collider).</td>
+</tr>
+<tr>
+<td><strong>Inclusion Mode</strong></td>
+<td><strong>Partial</strong>: the area takes a part as soon as any of it is inside. <strong>Full</strong>: the whole part must be inside.</td>
+</tr>
+<tr>
+<td><strong>Priority</strong></td>
+<td>Where areas overlap, the highest one decides. Ties: all of them.</td>
+</tr>
+<tr>
+<td><strong>Allow Placing / Allow Demolishing / Allowed Types</strong></td>
+<td>Quick switches.</td>
+</tr>
+<tr>
+<td><strong>Area Type</strong></td>
+<td>A label for your own scripts. Nothing in the package reads it.</td>
+</tr>
+</tbody>
+</table>
+<p>Areas test the part's real shape (its colliders and condition boxes), not just a bounding box. Global areas are checked first, then the area with the highest priority that holds the part. With <strong>Allow Outside Zones</strong> off on the controller, nothing can be built outside every area.</p>
+<h3 id="rules">Rules</h3>
+<p>Add rules as components on the area; each has <strong>Rule Enabled</strong>. Rules do not apply in Upgrade mode.</p>
+<ul>
+<li><strong>Height Restriction:</strong> a minimum and maximum height for placing, destroying and moving.</li>
+<li><strong>Category Restriction:</strong> which categories may be placed, destroyed or moved here.</li>
+<li><strong>Capacity Restriction:</strong> the most parts the area holds, in total or per category.</li>
+<li><strong>Proximity Restriction:</strong> keeps parts apart (<strong>Min Distance</strong>) or together (<strong>Max Distance</strong>), optionally counting only some categories.</li>
+</ul>
+<p>To write your own rule, see section 12.</p>
+<hr />
+<h2 id="9-terrain">9. Terrain</h2>
+<p>Add <strong>Build Terrain</strong> to a Terrain.</p>
+<ul>
+<li><strong>Blocked Layers:</strong> no building where one of these terrain layers is the main texture.</li>
+<li><strong>Clear Grass:</strong> parts flatten the grass under them, plus <strong>Grass Margin</strong>.</li>
+<li><strong>Tree Rule:</strong> trees either <strong>Block</strong> parts within <strong>Tree Radius</strong>, or are <strong>Removed</strong> by them.</li>
+<li><strong>Restore On Demolish:</strong> grass and trees come back when the part goes.</li>
+<li><strong>Protect Asset:</strong> in Play mode the component works on a copy of the TerrainData, so your asset is never changed.</li>
+</ul>
+<p>For rules on a single part (slope, layers, trees), use its <strong>Terrain Condition</strong> instead.</p>
+<hr />
+<h2 id="10-menus">10. Menus</h2>
+<p><img loading="lazy" alt="The radial menu" src="img/radial.png" /></p>
+<p>There are two menus. Create them from <strong>GameObject &gt; XamSav &gt; Joinery &gt; UI</strong>:</p>
+<ul>
+<li><strong>Build Catalog:</strong> a window with categories, a search box and tiles.</li>
+<li><strong>Radial Menu:</strong> a ring of categories, then of parts.</li>
+</ul>
+<p>Both menus share the same settings:</p>
+<ul>
+<li><strong>Controller:</strong> empty means the controller on the same object, else the first one in the scene.</li>
+<li><strong>Categories and slots:</strong> each slot has a name, a description, an icon and an action.</li>
+<li><strong>Selection:</strong> pick a part.</li>
+<li><strong>Mode:</strong> switch build mode.</li>
+<li><strong>Upgrade:</strong> switch to a given variant.</li>
+<li><strong>Blueprint:</strong> place a Building Blueprint (section 3).</li>
+<li><strong>Category Selection:</strong> open a category.</li>
+<li><strong>Custom Invoke:</strong> call a UnityEvent.</li>
+<li><strong>Menu:</strong> with no categories, the menu fills itself from a <strong>Build Menu</strong> asset (<em>Create &gt; XamSav &gt; Joinery &gt; Build Menu</em>).</li>
+<li><strong>Open Key</strong> / <strong>Toggle Action:</strong> what opens and closes the menu.</li>
+</ul>
+<p><strong>Building Collections</strong> (<em>Create &gt; XamSav &gt; Joinery &gt; Building Collection</em>) are lists of parts. The Building Input inspector can copy one into its <strong>Custom Part References</strong>.</p>
+<h3 id="changing-the-look">Changing the look</h3>
+<p>The menus and the touch controls are ordinary uGUI prefabs in <code>Runtime/Resources</code>:</p>
+<ul>
+<li><code>XamSavBuildCatalog</code></li>
+<li><code>XamSavRadialMenu</code></li>
+<li><code>XamSavTouchControls</code></li>
+</ul>
+<p>To restyle one, duplicate the prefab, edit it and put the copy in the component's <strong>UI Prefab</strong> field. The menu clones its templates (category item, tile, segment) at runtime, so style the templates. Do not edit the originals: <strong>Tools &gt; XamSav &gt; Joinery &gt; Rebuild Menu UI Prefabs</strong> overwrites them.</p>
+<hr />
+<h2 id="11-touch-screens">11. Touch screens</h2>
+<p>Add <strong>Building Touch Controls</strong> to the object with the Building Controller. With <strong>Visibility = Auto</strong>, the controls show only on devices with a touchscreen. They give you:</p>
+<ul>
+<li><strong>Confirm</strong>, labelled with the current action (Place, Destroy...), plus <strong>Cancel</strong> and <strong>Rotate</strong>;</li>
+<li>one button per mode, and <strong>Parts</strong>, which opens the catalog (or the radial menu);</li>
+<li>a joystick that appears where the thumb lands, and <strong>Up / Down</strong> to fly in first person, both used by the Build Camera;</li>
+<li><strong>Save Blueprint</strong> and <strong>Delete Blueprint</strong>, when a menu has a <strong>Saved Blueprints Category</strong> (section 3, <em>Blueprints</em>).</li>
+</ul>
+<p><strong>Hide Unused Buttons</strong> (on by default) shows only the buttons that do something right now:</p>
+<ul>
+<li><strong>Cancel</strong> only while carrying a part;</li>
+<li><strong>Rotate</strong> while placing or carrying;</li>
+<li><strong>Upgrade</strong> only if some part can be upgraded;</li>
+<li><strong>Save Blueprint</strong> while aiming at a placed part (not while placing);</li>
+<li><strong>Delete Blueprint</strong> while a saved blueprint is selected. The first tap only asks (<em>Tap again to delete</em>); a second tap within <strong>Delete Confirm Time</strong> (3 s) deletes. Set it to 0 to delete at once.</li>
+</ul>
+<p><strong>Tap To Validate</strong> lets a quick tap on the scene confirm, without the button.</p>
+<p>Gestures with the Build Camera:</p>
+<ul>
+<li><strong>First person:</strong> one finger looks around.</li>
+<li><strong>Top-down:</strong> two fingers pan, pinch to zoom, twist to rotate.</li>
+</ul>
+<p>Fingers that start on a button never move the aim or the camera. The radial menu works with a finger too: lift to choose, lift in the centre to go back.</p>
+<hr />
+<h2 id="12-scripting">12. Scripting</h2>
+<h3 id="events">Events</h3>
+<pre><code class="language-csharp">using XamSav.Building;
+
+controller.Placed += part =&gt; Debug.Log(&quot;Placed &quot; + part.DisplayName);
+controller.ValidationFailed += (mode, reason) =&gt; ShowMessage(reason);
+controller.ModeChanged += mode =&gt; UpdateHud(mode);
+
+BuildingManager.PieceRegistered += part =&gt; { /* every new part, by any route */ };
+BuildingManager.PieceCollapsed += part =&gt; { /* lost its support */ };
+</code></pre>
+<p>The controller also raises <code>Demolished</code>, <code>PickedUp</code>, <code>Dropped</code>, <code>ViewChanged</code> and <code>PartSelected</code>. The manager also raises <code>PieceUnregistered</code> and <code>PieceMoved</code>. Each part raises <code>BuildingEventRaised(part, event)</code> and <code>StateChanged</code>.</p>
+<h3 id="driving-the-controller">Driving the controller</h3>
+<pre><code class="language-csharp">controller.SetMode(BuildMode.Placement);
+controller.SelectPart(wallPrefab);
+controller.ValidateAction();   // same as a click: place, destroy, pick up / drop, upgrade
+controller.CancelAction();
+controller.RotateAction();
+</code></pre>
+<h3 id="building-from-code-undoable">Building from code (undoable)</h3>
+<pre><code class="language-csharp">var wall = BuildingManager.Place(wallPrefab, new Pose(position, rotation));
+BuildingManager.Move(wall, new Pose(position, rotation), new Pose(newPosition, rotation));
+BuildingManager.Upgrade(wall);                 // next variant, or Upgrade To
+BuildingManager.DestroyPiece(wall);
+BuildingManager.Instance.Undo();
+
+// Blueprints: save what the player built, then place it again in one go
+controller.SaveAimedStructure();               // the structure under the aim, to a file
+
+// Building part by part (Build Mode Planned): charge for each part, then build it
+var site = BlueprintSite.At(aimPoint);         // or controller.LastSite, or BlueprintSite.Sites
+if (site != null &amp;&amp; site.CanBuildNext(out var reason) &amp;&amp; inventory.TrySpend(site.NextPart)) // inventory: your own
+    site.BuildNext();                          // undoable; site.IsComplete when every part stands
+BlueprintSite.SiteCompleted += s =&gt; Debug.Log(s.Blueprint.DisplayName + &quot; finished&quot;);
+controller.DeleteSelectedBlueprint();          // the saved blueprint selected for placement
+var group = BuildingManager.Instance.GroupingSystem.GroupOf(wall);           // the structure the wall is part of
+var blueprint = BuildingBlueprintStorage.SaveNew(group.Pieces, &quot;My base&quot;);   // to a file; listed in the menus
+controller.SelectBlueprint(blueprint);         // the player places it in Placement mode
+BuildingManager.Execute(new BlueprintCommand(blueprint, new Pose(position, rotation))); // or place it directly
+</code></pre>
+<h3 id="saving-your-own-data">Saving your own data</h3>
+<pre><code class="language-csharp">public class Chest : MonoBehaviour
+{
+    public int coins;
+
+    void Awake()
+    {
+        var part = GetComponent&lt;BuildPiece&gt;();
+        part.SaveCallback += data =&gt; data.SetInt(&quot;coins&quot;, coins);
+        part.LoadCallback += data =&gt; coins = data.GetInt(&quot;coins&quot;);
+    }
+}
+</code></pre>
+<p><code>PieceStateData</code> stores strings, ints, floats, bools and Vector3s. The same callbacks run when an undo brings a destroyed or collapsed part back: <code>SaveCallback</code> when it goes, <code>LoadCallback</code> on the new copy before its behaviors hear <code>Placed</code>.</p>
+<h3 id="a-custom-condition">A custom condition</h3>
+<pre><code class="language-csharp">public class DaylightCondition : BuildingCondition
+{
+    protected override ConditionResult Check(in ConditionContext context) =&gt;
+        context.mode == BuildMode.Placement &amp;&amp; IsNight()
+            ? ConditionResult.Fail(&quot;You cannot build at night&quot;)
+            : ConditionResult.Valid;
+}
+</code></pre>
+<p><code>ConditionContext</code> carries:</p>
+<ul>
+<li>the mode and the controller;</li>
+<li>the prefab and the preview instance;</li>
+<li>the pose (<code>hasPose</code>, <code>pose</code>) and the socket.</li>
+</ul>
+<p>Override <code>EvaluationOrder</code> to run before or after the built-in conditions.</p>
+<h3 id="a-custom-area-rule">A custom area rule</h3>
+<pre><code class="language-csharp">public class NoRoofsRule : BuildingRule
+{
+    protected override ConditionResult Check(in AreaRuleContext context) =&gt;
+        context.part != null &amp;&amp; context.part.type == PieceType.Roof
+            ? ConditionResult.Fail(&quot;No roofs in &quot; + context.area.name)
+            : ConditionResult.Valid;
+}
+</code></pre>
+<h3 id="a-custom-behavior">A custom behavior</h3>
+<pre><code class="language-csharp">public class PlaceSound : BuildingBehavior
+{
+    public AudioClip clip;
+
+    protected override void OnBuildingEvent(BuildingEvent buildingEvent, BuildPiece part)
+    {
+        if (buildingEvent == BuildingEvent.Placed) AudioSource.PlayClipAtPoint(clip, part.transform.position);
+    }
+}
+</code></pre>
+<h3 id="a-custom-state">A custom state</h3>
+<p>Derive from <code>BuildingState</code>, override <code>EnterState</code>, <code>UpdateState</code>, <code>ExitState</code> and the <code>On...Action</code> methods, and add the component next to the controller.</p>
+<h3 id="example-survival">Example: Survival</h3>
+<p><img loading="lazy" alt="The survival demo: stone on the left, damaged wood on the right" src="img/survival.png" /></p>
+<p><code>Demo/Survival/Survival.unity</code> puts the extension points above to work in a small survival loop: build a base, see it take damage, repair it and upgrade it. Regenerate it with <strong>Tools &gt; XamSav &gt; Joinery &gt; Regenerate Survival Demo</strong>; its parts are the main demo's foundation, wall, doorway and floor, remade under <code>Demo/Survival/Prefabs</code> with their own Piece Ids.</p>
+<table>
+<thead>
+<tr>
+<th>Piece</th>
+<th>Extension point</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Wood and Stone looks</td>
+<td>Renderer variants</td>
+<td>Every part has a <strong>Wood</strong> (0) and a <strong>Stone</strong> (1) variant on the same meshes. <strong>U</strong> upgrades through them; <code>upgradeTo</code> is left empty.</td>
+</tr>
+<tr>
+<td>Durability</td>
+<td><code>BuildingDurability</code>, <code>DamageTint</code>, <code>DamageMarks</code> (section 3, <em>Durability and damage</em>)</td>
+<td>Hit points per variant (wood 100, stone 250). A damaged part darkens and loses tiles of the 0.25 m grid its material draws (<strong>Damage Marks</strong>, style <strong>Tiles</strong>).</td>
+</tr>
+<tr>
+<td><code>PartEffects</code></td>
+<td><code>BuildingDurability.onDamaged</code>, <code>onRepaired</code>, <code>BuildingEvent.Upgraded</code></td>
+<td>Bursts of small blocks: splinters on a hit, light blocks rising on a repair, a swirl of the new material on an upgrade. An example of hooking your own effects to durability and building events. Plain cubes moved in code, so no particle module is needed.</td>
+</tr>
+<tr>
+<td><code>RepairFirstCondition</code></td>
+<td><code>BuildingCondition</code></td>
+<td>Refuses <strong>Upgrade</strong>, and picking a part up in <strong>Adjustment</strong>, while the part is damaged: "Repair it first (66/100 HP)". Dropping a carried part is never refused, because it is only checked while there is no pose.</td>
+</tr>
+<tr>
+<td><code>SurvivalPlayer</code></td>
+<td><code>BuildingController.ActiveView</code>, <code>BuildingManager.Pieces</code></td>
+<td><strong>F</strong> strikes the aimed part, <strong>H</strong> repairs it, and a storm hits a few random parts every 45 s. Shows the aimed part's health and the storm timer. <code>DemoPlayer</code> stays next to it for the mode help, undo and <strong>F5 / F9</strong> saving.</td>
+</tr>
+</tbody>
+</table>
+<p>The demo has no resources or crafting. To charge for parts, add a condition that checks the player's stock in <strong>Placement</strong> and <strong>Upgrade</strong>. Then add a behavior that spends it on <code>Placed</code> and <code>Upgraded</code> and refunds it on <code>Destroyed</code>. Loading a save raises <code>Placed</code> too, so skip the charge while <code>Load</code> runs.</p>
+<hr />
+<h2 id="13-performance">13. Performance</h2>
+<p>The package is tested with a few thousand parts.</p>
+<ul>
+<li>Parts, sockets and areas are kept in registries with spatial lookups, so aiming and validation do not scan the whole scene.</li>
+<li><strong>Build Batcher</strong> (on the controller's object) merges placed parts into chunks of <strong>Chunk Size</strong> metres, which cuts draw calls. A chunk is rebuilt when a part in it changes.</li>
+<li>Keep part colliders simple (boxes beat mesh colliders) and give sockets a sensible <strong>Radius</strong>.</li>
+<li>Turn off what you do not use: the grid, grouping and collapse are all optional.</li>
+</ul>
+<hr />
+<h2 id="14-limitations-and-troubleshooting">14. Limitations and troubleshooting</h2>
+<p><strong>Not supported:</strong></p>
+<ul>
+<li>HDRP.</li>
+<li>The old Input Manager (Input System only).</li>
+<li>VR / XR controllers.</li>
+<li>Multiplayer. The commands run locally; networking is up to you.</li>
+</ul>
+<p><strong>The preview is always red.</strong> Turn on <strong>Show Logs</strong> on the part's conditions and on the controller's states: the Console gives the reason. Common causes:</p>
+<ul>
+<li>the part overlaps something (lower <strong>Overlap Tolerance</strong> on the neighbour, or check the collider layers);</li>
+<li><strong>Require Socket</strong> is on;</li>
+<li>the spot is outside every area while <strong>Allow Outside Zones</strong> is off;</li>
+<li>a Collapse Condition finds no support.</li>
+</ul>
+<p><strong>Parts do not snap.</strong></p>
+<ul>
+<li>Check the socket's snapping points (category spelling and case) and its <strong>Radius</strong>.</li>
+<li>Check the view's <strong>Snap Max Angle</strong>.</li>
+<li>If the part has neither <strong>Free Placement</strong> nor a matching socket, it cannot go anywhere.</li>
+</ul>
+<p><strong>A loaded save is missing parts.</strong> The manager rebuilds parts by <strong>Piece Id</strong>. Make sure every part is in the manager's <strong>Library</strong> or in the registry, and that its Piece Id has not changed.</p>
+<p><strong>Clicking a button also places a part.</strong> Keep <strong>Block When Pointer Over UI</strong> on, and make sure the scene has an EventSystem. Menus create one if it is missing.</p>
+<p><strong>Jagged shadows.</strong> Shadows come from your render pipeline's settings, not from the package. In your URP asset, turn on <strong>Soft Shadows</strong>, use 4 cascades, and use a Main Light shadow resolution of 4096. Keep the shadow distance no longer than you need: the screenshots used 60 m.</p>
+<p><strong>Pink materials.</strong> Your project uses a different render pipeline from the demo materials. Convert them with Unity's Render Pipeline Converter, or assign your own materials.</p>
+</main>
+<footer class="site-footer"><div class="container footer-grid">
+<a class="brand" href="../">XamSav</a>
+<ul class="footer-links"><li><a href="../aviso-legal.html">Aviso legal</a></li><li><a href="../privacidad.html">Privacidad</a></li></ul>
+</div></footer>
+</body>
+</html>

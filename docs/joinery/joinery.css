@@ -1,0 +1,34 @@
+/* Joinery pages: extends ../styles.css */
+:root { --wood: #e0a84a; }
+body { background: var(--bg); color: var(--text); }
+.sub-links { display: flex; gap: 20px; list-style: none; margin: 0; padding: 0; }
+.sub-links a { color: var(--muted); text-decoration: none; }
+.sub-links a:hover { color: var(--text); }
+main { padding-top: calc(var(--nav-h) + 24px); }
+
+.doc { max-width: 860px; padding-bottom: 64px; line-height: 1.65; overflow-wrap: anywhere; }
+.doc pre, .doc pre code { overflow-wrap: normal; }
+.doc h1 { font-size: clamp(2rem, 5vw, 2.6rem); }
+.doc h2 { margin-top: 2.4em; padding-top: .6em; border-top: 1px solid var(--border); }
+.doc a { color: var(--wood); }
+.doc img { max-width: 100%; height: auto; border-radius: var(--radius); border: 1px solid var(--border); }
+.doc table { width: 100%; border-collapse: collapse; display: block; overflow-x: auto; margin: 1em 0; font-size: .95rem; }
+.doc th, .doc td { border: 1px solid var(--border); padding: 8px 10px; text-align: left; vertical-align: top; }
+.doc th { background: var(--surface-2); }
+.doc code { font-family: var(--mono); font-size: .9em; background: var(--surface-2); padding: 1px 5px; border-radius: 4px; }
+.doc pre { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; overflow-x: auto; }
+.doc pre code { background: none; padding: 0; }
+
+.j-hero { padding: 24px 0 48px; }
+.j-hero h1 { font-size: clamp(2.4rem, 7vw, 4rem); margin: 0 0 .1em; }
+.j-hero .tag { color: var(--wood); font-weight: 600; font-size: 1.25rem; margin: 0 0 .8em; }
+.j-hero p { max-width: 640px; color: var(--muted); font-size: 1.1rem; }
+.j-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 24px 0 8px; }
+.j-note { color: var(--muted); font-size: .9rem; overflow-wrap: anywhere; }
+.j-shot { width: 100%; height: auto; border-radius: var(--radius); border: 1px solid var(--border); }
+.j-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin: 24px 0 48px; }
+.j-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
+.j-card h3 { margin-top: 0; }
+.j-card ul { padding-left: 1.1em; margin: 0; color: var(--muted); }
+.j-card figure { margin: 0 0 12px; }
+section.j { padding-bottom: 32px; }
