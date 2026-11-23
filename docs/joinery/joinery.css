@@ -1,7 +1,7 @@
 /* Joinery pages: extends ../styles.css */
 :root { --wood: #e0a84a; }
 body { background: var(--bg); color: var(--text); }
-.sub-links { display: flex; gap: 20px; list-style: none; margin: 0; padding: 0; }
+.sub-links { display: flex; align-items: center; gap: 20px; list-style: none; margin: 0; padding: 0; }
 .sub-links a { color: var(--muted); text-decoration: none; }
 .sub-links a:hover { color: var(--text); }
 main { padding-top: calc(var(--nav-h) + 24px); }
@@ -32,3 +32,4 @@ main { padding-top: calc(var(--nav-h) + 24px); }
 .j-card ul { padding-left: 1.1em; margin: 0; color: var(--muted); }
 .j-card figure { margin: 0 0 12px; }
 section.j { padding-bottom: 32px; }
+@media (max-width: 520px) { .sub-links { gap: 14px; } .sub-links .btn { display: none; } }

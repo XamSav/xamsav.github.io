@@ -11,12 +11,19 @@
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../styles.css">
 <link rel="stylesheet" href="joinery.css">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<script src="../main.js" defer></script>
 </head>
 <body>
-<header class="site-header"><nav class="container nav" aria-label="Main">
-<a class="brand" href="../">XamSav</a>
-<ul class="sub-links"><li><a href="./">Joinery</a></li><li><a href="Joinery-Manual.pdf">PDF</a></li></ul>
-</nav></header>
+<header class="site-header">
+    <nav class="container nav" aria-label="Principal">
+        <a class="brand" href="../">
+            <img src="../img/logo_blanco.PNG" alt="" width="34" height="34">
+            XamSav
+        </a>
+        <ul class="sub-links"><li><a href="./">Joinery</a></li><li><a href="Joinery-Manual.pdf">PDF</a></li><li><a class="btn btn-ghost btn-sm" href="../">Volver a la web</a></li></ul>
+    </nav>
+</header>
 <main class="container doc">
 <h1 id="joinery-manual">Joinery — Manual</h1>
 <p><em>Modular Building System for Unity.</em> Everything lives in the <code>XamSav.Building</code> namespace. Every field in the inspector has a tooltip; this manual explains how the pieces fit together and when to use each one.</p>
@@ -787,9 +794,23 @@ BuildingManager.Execute(new BlueprintCommand(blueprint, new Pose(position, rotat
 <p><strong>Jagged shadows.</strong> Shadows come from your render pipeline's settings, not from the package. In your URP asset, turn on <strong>Soft Shadows</strong>, use 4 cascades, and use a Main Light shadow resolution of 4096. Keep the shadow distance no longer than you need: the screenshots used 60 m.</p>
 <p><strong>Pink materials.</strong> Your project uses a different render pipeline from the demo materials. Convert them with Unity's Render Pipeline Converter, or assign your own materials.</p>
 </main>
-<footer class="site-footer"><div class="container footer-grid">
-<a class="brand" href="../">XamSav</a>
-<ul class="footer-links"><li><a href="../aviso-legal.html">Aviso legal</a></li><li><a href="../privacidad.html">Privacidad</a></li></ul>
-</div></footer>
+<footer class="site-footer">
+    <div class="container footer-grid">
+        <p style="margin:0">© <span data-year>2026</span> Samuel Viguera · XamSav</p>
+        <ul class="footer-links">
+            <li><a href="../aviso-legal.html">Aviso legal</a></li>
+            <li><a href="../privacidad.html">Privacidad y cookies</a></li>
+            <li><button class="link-button" type="button" data-consent="settings">Configurar cookies</button></li>
+        </ul>
+    </div>
+</footer>
+
+<div class="consent" id="consent" role="dialog" aria-live="polite" aria-label="Preferencias de cookies" hidden>
+    <p>Uso cookies de analítica (Google Analytics) solo si las aceptas. Más información en <a href="../privacidad.html#cookies">mi política de cookies</a>.</p>
+    <div class="consent-actions">
+        <button class="btn btn-primary btn-sm" type="button" data-consent="granted">Aceptar</button>
+        <button class="btn btn-ghost btn-sm" type="button" data-consent="denied">Rechazar</button>
+    </div>
+</div>
 </body>
 </html>
