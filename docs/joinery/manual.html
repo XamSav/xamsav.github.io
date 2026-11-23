@@ -30,34 +30,38 @@
 <main class="docs">
 <aside class="docs-side" id="docs-side" aria-label="Manual sections">
 <a class="side-pdf" href="Joinery-Manual.pdf">⤓ Download PDF</a>
-<p class="side-group">Get started</p><ul>
+<p class="side-group">Get started</p>
+<ul>
 <li><a href="#joinery-manual">Introduction</a></li>
 <li><a href="#1-how-it-works">How it works</a></li>
 <li><a href="#2-setting-up-a-scene">Setting up a scene</a></li>
 </ul>
-<p class="side-group">Core</p><ul>
+<p class="side-group">Core</p>
+<ul>
 <li><a href="#3-building-parts">Building Parts</a></li>
 <li><a href="#4-sockets">Sockets</a></li>
 <li><a href="#5-grids">Grids</a></li>
 <li><a href="#6-building-controller-input-views-and-camera">Controller, input and camera</a></li>
 <li><a href="#7-building-manager">Building Manager</a></li>
 </ul>
-<p class="side-group">World</p><ul>
+<p class="side-group">World</p>
+<ul>
 <li><a href="#8-building-areas-and-rules">Areas and rules</a></li>
 <li><a href="#9-terrain">Terrain</a></li>
 </ul>
-<p class="side-group">Interface</p><ul>
+<p class="side-group">Interface</p>
+<ul>
 <li><a href="#10-menus">Menus</a></li>
 <li><a href="#11-touch-screens">Touch screens</a></li>
 </ul>
-<p class="side-group">Advanced</p><ul>
+<p class="side-group">Advanced</p>
+<ul>
 <li><a href="#12-scripting">Scripting</a></li>
 <li><a href="#13-performance">Performance</a></li>
 <li><a href="#14-limitations-and-troubleshooting">Troubleshooting</a></li>
 </ul>
 </aside>
-<article class="doc docs-content">
-<p class="eyebrow">Joinery · Manual</p>
+<article class="doc docs-content"><p class="eyebrow">Joinery · Manual</p>
 <h1 id="joinery-manual">Joinery — Manual</h1>
 <p><em>Modular Building System for Unity.</em> Everything lives in the <code>XamSav.Building</code> namespace. Every field in the inspector has a tooltip; this manual explains how the pieces fit together and when to use each one.</p>
 <h2 id="1-how-it-works">How it works</h2>
@@ -118,16 +122,20 @@
 <h2 id="2-setting-up-a-scene">Setting up a scene</h2>
 <ol>
 <li><strong>Building Manager.</strong> Use <strong>GameObject &gt; XamSav &gt; Joinery &gt; Components &gt; Create Building Manager...</strong>. A scene holds one; the menu is greyed out once it has it.</li>
-<li><strong>Controller.</strong> Add <code>BuildingController</code> to the camera, or to the player. <code>BuildingInput</code> comes with it. When the game starts the controller adds:
-   - any missing mode states;
-   - a <code>FirstPersonBuildingView</code> if it has no view.</li>
+<li><strong>Controller.</strong> Add <code>BuildingController</code> to the camera, or to the player. <code>BuildingInput</code> comes with it. When the game starts the controller adds:<ul>
+<li>any missing mode states;</li>
+<li>a <code>FirstPersonBuildingView</code> if it has no view.</li>
+</ul>
+</li>
 <li><strong>Parts.</strong> Fill the controller's <strong>Pieces</strong> with part prefabs. These are what the mouse wheel cycles through.</li>
-<li><strong>Optional, in any order:</strong>
-   - <code>BuildCamera</code> on the same camera: fly in first person or switch to top-down with <strong>V</strong>.
-   - A catalog or radial menu (section 10).
-   - <code>BuildingTouchControls</code> on the camera (section 11).
-   - Areas (section 8).
-   - A <code>BuildBatcher</code> on the camera, for large bases (section 13).</li>
+<li><strong>Optional, in any order:</strong><ul>
+<li><code>BuildCamera</code> on the same camera: fly in first person or switch to top-down with <strong>V</strong>.</li>
+<li>A catalog or radial menu (section 10).</li>
+<li><code>BuildingTouchControls</code> on the camera (section 11).</li>
+<li>Areas (section 8).</li>
+<li>A <code>BuildBatcher</code> on the camera, for large bases (section 13).</li>
+</ul>
+</li>
 </ol>
 <p><strong>Start Mode</strong> on the controller picks the mode at launch. <strong>None</strong> means the player presses <strong>E</strong> first.</p>
 <h3 id="default-controls">Default controls</h3>
@@ -255,7 +263,11 @@
 </tr>
 <tr>
 <td><strong>Force Grounding</strong></td>
-<td>Drops to the ground under the aimed point.</td>
+<td>Drops to the ground under the aimed point, through other parts.</td>
+</tr>
+<tr>
+<td><strong>Ground On</strong></td>
+<td>With Force Grounding: placed parts of these types count as ground too. Furniture uses Foundation and Floor, so it stands inside houses built with Joinery.</td>
 </tr>
 <tr>
 <td><strong>Use Grid Snapping</strong> / <strong>Cell Size</strong></td>
@@ -270,13 +282,17 @@
 <h3 id="conditions">Conditions</h3>
 <p>Conditions are components on the part. They decide whether an action is allowed. Each one has <strong>Condition Enabled</strong> and <strong>Show Logs</strong> (prints every refusal to the Console).</p>
 <ul>
-<li><strong>Common Condition</strong> (always present):</li>
+<li><strong>Common Condition</strong> (always present):<ul>
 <li>which modes may touch the part (<strong>Allow Placement / Destruction / Adjustment / Upgrade</strong>);</li>
 <li><strong>Require Socket</strong>: the part must snap, like a window in a wall;</li>
 <li><strong>Ignore Areas</strong>: the part skips every area restriction.</li>
-<li><strong>Collision Condition:</strong></li>
+</ul>
+</li>
+<li><strong>Collision Condition:</strong><ul>
 <li><strong>Block Overlapping Parts</strong> tests the part's colliders against placed parts. Without this condition, a part does not check overlaps at all.</li>
 <li><strong>Bounds</strong> adds boxes that must be free, or that must touch something (<strong>Require Contact</strong>) or the terrain (<strong>Require Terrain</strong>). Example: a lamp that must hang from a ceiling.</li>
+</ul>
+</li>
 <li><strong>Collapse Condition:</strong> the part needs support (section 7, <em>Collapse</em>).</li>
 <li><strong>Terrain Condition:</strong> refuses terrain that is too steep, terrain layers you list, or spots near trees you list.</li>
 </ul>
@@ -338,10 +354,12 @@
 <li><strong>The anchor:</strong> the first part, the lowest one when captured. It snaps to sockets or the grid like any part, and the other parts keep their place around it. Rotating the preview turns the whole blueprint.</li>
 <li><strong>Placing:</strong> a menu slot with the <strong>Blueprint</strong> action, or <code>controller.SelectBlueprint(blueprint)</code> from code. The preview turns red when the anchor cannot stand there, when another part would overlap a placed part, or when a Building Area refuses one of them.</li>
 <li><strong>Undo:</strong> one Undo removes the whole blueprint.</li>
-<li><strong>Build Mode:</strong> how the parts go up once it is placed.</li>
+<li><strong>Build Mode:</strong> how the parts go up once it is placed.<ul>
 <li><strong>Instant:</strong> all at once.</li>
 <li><strong>Sequential:</strong> one after another, every <strong>Part Interval</strong> seconds, on their own.</li>
 <li><strong>Planned:</strong> only a plan is laid out. Your game builds each part with <code>site.BuildNext()</code>, for example when the player pays for it.</li>
+</ul>
+</li>
 </ul>
 <p>With Sequential and Planned, the placed blueprint becomes a <strong>Blueprint Site</strong>. The parts still to build show as a translucent blue plan (<code>BlueprintSite.PlanColor</code>). Parts go up bottom first. A part that something blocks waits: <code>CanBuildNext(out reason)</code> says why. A part of an unfinished site that gets destroyed goes back to the plan. One Undo takes the whole site down; with Planned, each <code>BuildNext</code> is undone on its own. Unfinished sites are saved and loaded with the Building Manager's save. Sequential sites need a Building Manager in the scene.
 - <strong>Missing prefabs:</strong> each part stores its prefab and its Piece Id. With no prefab, the Library and the Building Part Registry are used. Parts still missing are left out.</p>
@@ -353,6 +371,7 @@
 <ul>
 <li><strong>Hut:</strong> Sequential.</li>
 <li><strong>Small House:</strong> Instant.</li>
+<li><strong>Two-Storey House:</strong> Instant, with indoor stairs (the demo's <strong>Stairs</strong> part, on a foundation) up to a second floor whose <strong>Stair Floor</strong> leaves the way up open. The example house behind the start is one.</li>
 <li><strong>Small House Plan:</strong> Planned; aim at its plan and press <strong>N</strong> to build the next part. Aim at a structure and press <strong>B</strong> to save it; it appears under <strong>My Blueprints</strong>. Pick one there and press <strong>Delete</strong> twice to remove it (the first press asks). On touch screens, the <strong>Save Blueprint</strong> and <strong>Delete Blueprint</strong> buttons do the same.</li>
 </ul>
 <h3 id="building-part-registry">Building Part Registry</h3>
@@ -397,15 +416,19 @@
 <p>Turn on <strong>Building Manager &gt; Grid Settings &gt; Enable Grid</strong> to get a world grid of <strong>Size</strong> cells, each <strong>Cell Size</strong> metres, centred on the manager. Parts with <strong>Use Grid Snapping</strong> then snap to cells and take <strong>Cell Size</strong> cells of the grid; occupied cells refuse other parts.</p>
 <ul>
 <li><strong>Build Grid</strong> components are local grids with their own cell size. Inside their box they take over from the world grid.</li>
-<li><strong>Appearance:</strong></li>
+<li><strong>Appearance:</strong><ul>
 <li><strong>Grid Material</strong> can be edited inline; the default is <code>XamSavGridMaterial</code>.</li>
 <li><strong>Show Occupied Footprints</strong> shades the cells parts take, and <strong>Show Placement Footprint</strong> shades the cells under the preview.</li>
 <li><strong>Grid Visibility By Mode</strong> sets in which modes the grid shows.</li>
+</ul>
+</li>
 <li><strong>Follow:</strong> <code>SetFollowTarget(transform, true)</code> moves the grid with the player, one whole cell at a time. Use it for endless worlds.</li>
-<li><strong>From code</strong> (<code>BuildingManager.Instance.GridSystem</code>):</li>
+<li><strong>From code</strong> (<code>BuildingManager.Instance.GridSystem</code>):<ul>
 <li><code>GetCell(x, y)</code> or <code>GetCell(worldPosition)</code> returns the cell, whether it is occupied and the part on it;</li>
 <li><code>SetGridVisualsVisible(bool)</code> shows or hides the grid;</li>
 <li><code>RefreshGrid()</code> redraws it.</li>
+</ul>
+</li>
 </ul>
 <h2 id="6-building-controller-input-views-and-camera">Building Controller, input, views and camera</h2>
 <h3 id="controller">Controller</h3>
@@ -504,13 +527,17 @@
 <h3 id="saving">Saving</h3>
 <p><strong>Save Settings &gt; Enable Saving.</strong> Each scene gets its own slot (<strong>File Name</strong> plus the scene name), and a save refuses to load into another scene.</p>
 <ul>
-<li><strong>Save Mode:</strong></li>
+<li><strong>Save Mode:</strong><ul>
 <li><strong>Automatic</strong> loads on Start and saves when the game ends (on mobile, also when the app is paused). <strong>Auto Save</strong> adds a save every <strong>Auto Save Interval</strong> seconds.</li>
 <li><strong>Manual</strong>: call <code>Save()</code> and <code>Load()</code> yourself.</li>
-<li><strong>Storage:</strong></li>
+</ul>
+</li>
+<li><strong>Storage:</strong><ul>
 <li><strong>PlayerPrefs</strong>;</li>
 <li><strong>Local File Data</strong>, in <code>Application.dataPath</code> (handy in the Editor);</li>
 <li><strong>Local File Persistent</strong>, in <code>Application.persistentDataPath</code> (use this in builds).</li>
+</ul>
+</li>
 <li>File storages keep a <code>.bak</code> copy and fall back to it if the main file is damaged.</li>
 <li><strong>What is saved</strong> for each part: position, rotation, scale, the socket it sits on, its variant and your own data (section 12).</li>
 </ul>
@@ -590,13 +617,15 @@
 <p>Both menus share the same settings:</p>
 <ul>
 <li><strong>Controller:</strong> empty means the controller on the same object, else the first one in the scene.</li>
-<li><strong>Categories and slots:</strong> each slot has a name, a description, an icon and an action.</li>
+<li><strong>Categories and slots:</strong> each slot has a name, a description, an icon and an action.<ul>
 <li><strong>Selection:</strong> pick a part.</li>
 <li><strong>Mode:</strong> switch build mode.</li>
 <li><strong>Upgrade:</strong> switch to a given variant.</li>
 <li><strong>Blueprint:</strong> place a Building Blueprint (section 3).</li>
 <li><strong>Category Selection:</strong> open a category.</li>
 <li><strong>Custom Invoke:</strong> call a UnityEvent.</li>
+</ul>
+</li>
 <li><strong>Menu:</strong> with no categories, the menu fills itself from a <strong>Build Menu</strong> asset (<em>Create &gt; XamSav &gt; Joinery &gt; Build Menu</em>).</li>
 <li><strong>Open Key</strong> / <strong>Toggle Action:</strong> what opens and closes the menu.</li>
 </ul>
@@ -613,7 +642,7 @@
 <p>Add <strong>Building Touch Controls</strong> to the object with the Building Controller. With <strong>Visibility = Auto</strong>, the controls show only on devices with a touchscreen. They give you:</p>
 <ul>
 <li><strong>Confirm</strong>, labelled with the current action (Place, Destroy...), plus <strong>Cancel</strong> and <strong>Rotate</strong>;</li>
-<li>one button per mode, and <strong>Parts</strong>, which opens the catalog (or the radial menu);</li>
+<li>one button per mode, <strong>Parts</strong>, which opens the catalog (or the radial menu when there is no catalog), and <strong>Wheel</strong>, which opens the radial menu when the scene has one;</li>
 <li>a joystick that appears where the thumb lands, and <strong>Up / Down</strong> to fly in first person, both used by the Build Camera;</li>
 <li><strong>Save Blueprint</strong> and <strong>Delete Blueprint</strong>, when a menu has a <strong>Saved Blueprints Category</strong> (section 3, <em>Blueprints</em>).</li>
 </ul>
@@ -771,6 +800,7 @@ BuildingManager.Execute(new BlueprintCommand(blueprint, new Pose(position, rotat
 <li><strong>Build Batcher</strong> (on the controller's object) merges placed parts into chunks of <strong>Chunk Size</strong> metres, which cuts draw calls. A chunk is rebuilt when a part in it changes.</li>
 <li>Keep part colliders simple (boxes beat mesh colliders) and give sockets a sensible <strong>Radius</strong>.</li>
 <li>Turn off what you do not use: the grid, grouping and collapse are all optional.</li>
+<li>On phones, terrain grass is the usual cost: lower the terrain's <strong>Detail Density</strong> and <strong>Detail Distance</strong>. The main demo does it at start on mobile (30 % density, 30 m).</li>
 </ul>
 <h2 id="14-limitations-and-troubleshooting">Limitations and troubleshooting</h2>
 <p><strong>Not supported:</strong></p>
@@ -796,8 +826,7 @@ BuildingManager.Execute(new BlueprintCommand(blueprint, new Pose(position, rotat
 <p><strong>A loaded save is missing parts.</strong> The manager rebuilds parts by <strong>Piece Id</strong>. Make sure every part is in the manager's <strong>Library</strong> or in the registry, and that its Piece Id has not changed.</p>
 <p><strong>Clicking a button also places a part.</strong> Keep <strong>Block When Pointer Over UI</strong> on, and make sure the scene has an EventSystem. Menus create one if it is missing.</p>
 <p><strong>Jagged shadows.</strong> Shadows come from your render pipeline's settings, not from the package. In your URP asset, turn on <strong>Soft Shadows</strong>, use 4 cascades, and use a Main Light shadow resolution of 4096. Keep the shadow distance no longer than you need: the screenshots used 60 m.</p>
-<p><strong>Pink materials.</strong> Your project uses a different render pipeline from the demo materials. Convert them with Unity's Render Pipeline Converter, or assign your own materials.</p>
-<div class="docs-end"><a href="Joinery-Manual.pdf">Download this manual as PDF</a> · <a href="./#demo">Try the demo</a></div>
+<p><strong>Pink materials.</strong> Your project uses a different render pipeline from the demo materials. Convert them with Unity's Render Pipeline Converter, or assign your own materials.</p><div class="docs-end"><a href="Joinery-Manual.pdf">Download this manual as PDF</a> · <a href="./#demo">Try the demo</a></div>
 </article>
 <aside class="docs-toc" aria-label="On this page"><p class="toc-title">On this page</p><ul id="toc"></ul></aside>
 </main>
